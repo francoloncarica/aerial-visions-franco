@@ -36,7 +36,7 @@ export default function Gallery({ title, images, aspectRatio }: GalleryProps) {
     
     setTimeout(() => {
       setIsAnimating(false);
-    }, 800); // Increased animation duration for smoother transition
+    }, 1000); // Increased animation duration for smoother transition
   };
   
   const prevSlide = () => {
@@ -50,11 +50,15 @@ export default function Gallery({ title, images, aspectRatio }: GalleryProps) {
     
     setTimeout(() => {
       setIsAnimating(false);
-    }, 800); // Increased animation duration for smoother transition
+    }, 1000); // Increased animation duration for smoother transition
   };
 
-  // Opens the fullscreen image viewer
+  // Opens the fullscreen image viewer - now conditional based on aspect ratio
   const openImageViewer = (imageIndex: number) => {
+    // For vertical images, don't open the viewer
+    if (aspectRatio.includes("aspect-[3328/7936]")) {
+      return;
+    }
     setSelectedImage(imageIndex);
   };
 
@@ -89,6 +93,9 @@ export default function Gallery({ title, images, aspectRatio }: GalleryProps) {
     else if (e.key === "Escape") closeImageViewer();
   };
 
+  // Determine if image is clickable (not for vertical images)
+  const isImageClickable = !aspectRatio.includes("aspect-[3328/7936]");
+
   return (
     <section 
       id={title.toLowerCase()}
@@ -118,11 +125,12 @@ export default function Gallery({ title, images, aspectRatio }: GalleryProps) {
                 <div 
                   key={image.id} 
                   className={cn(
-                    "overflow-hidden relative group cursor-pointer",
+                    "overflow-hidden relative group",
+                    isImageClickable ? "cursor-pointer" : "cursor-default",
                     aspectRatio,
                     "transition-all duration-700 ease-out animate-fade-in",
                   )}
-                  onClick={() => openImageViewer(currentIndex * visibleImages + index)}
+                  onClick={() => isImageClickable && openImageViewer(currentIndex * visibleImages + index)}
                 >
                   <img 
                     src={image.url} 
@@ -177,7 +185,7 @@ export default function Gallery({ title, images, aspectRatio }: GalleryProps) {
         </div>
       </div>
 
-      {/* Fullscreen Image Viewer */}
+      {/* Fullscreen Image Viewer with optimal display for panoramic images */}
       <Dialog open={selectedImage !== null} onOpenChange={(open) => !open && closeImageViewer()}>
         <DialogContent 
           className="max-w-[95vw] w-full h-[90vh] p-0 border-none bg-transparent"
@@ -188,7 +196,13 @@ export default function Gallery({ title, images, aspectRatio }: GalleryProps) {
               <img
                 src={images[selectedImage].url}
                 alt={images[selectedImage].alt}
-                className="max-h-full max-w-full object-contain animate-fade-in"
+                className={cn(
+                  "animate-fade-in",
+                  // For panoramic images, ensure they fit width-wise
+                  aspectRatio.includes("aspect-[8192/3262]") 
+                    ? "max-w-full h-auto object-contain" 
+                    : "max-h-full max-w-full object-contain"
+                )}
               />
             )}
             

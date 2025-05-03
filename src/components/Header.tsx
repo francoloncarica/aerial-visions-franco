@@ -1,9 +1,12 @@
 
 import { useState, useEffect } from "react";
 import { cn } from "@/lib/utils";
+import { Pause, Play } from "lucide-react";
 
 export default function Header() {
   const [scrolled, setScrolled] = useState(false);
+  const [isPlaying, setIsPlaying] = useState(false);
+  const [audio] = useState(() => new Audio("/ambient-chillout.mp3"));
   
   useEffect(() => {
     const handleScroll = () => {
@@ -14,10 +17,27 @@ export default function Header() {
     };
 
     window.addEventListener("scroll", handleScroll);
+    
+    // Configure audio
+    audio.loop = true;
+    audio.volume = 0.4;
+    
     return () => {
       window.removeEventListener("scroll", handleScroll);
+      audio.pause();
     };
-  }, [scrolled]);
+  }, [scrolled, audio]);
+
+  const toggleAudio = () => {
+    if (isPlaying) {
+      audio.pause();
+    } else {
+      audio.play().catch(error => {
+        console.error("Audio playback error:", error);
+      });
+    }
+    setIsPlaying(!isPlaying);
+  };
 
   return (
     <header 
@@ -31,17 +51,31 @@ export default function Header() {
           FRANCO LONCARICA
         </div>
         
-        <nav className="hidden md:flex space-x-6">
-          {["Panorámicas", "Verticales", "Inmobiliarias", "Fotos", "Hyperlapses", "Videos"].map((item) => (
-            <a 
-              key={item} 
-              href={`#${item.toLowerCase()}`} 
-              className="text-sm uppercase tracking-wider text-gray-300 hover:text-white transition-colors"
-            >
-              {item}
-            </a>
-          ))}
-        </nav>
+        <div className="flex items-center space-x-4">
+          <button
+            onClick={toggleAudio}
+            className="w-10 h-10 rounded-full bg-black/30 hover:bg-black/50 flex items-center justify-center transition-all backdrop-blur-sm"
+            aria-label={isPlaying ? "Pause music" : "Play music"}
+          >
+            {isPlaying ? (
+              <Pause size={20} className="text-white/90" />
+            ) : (
+              <Play size={20} className="text-white/90" />
+            )}
+          </button>
+          
+          <nav className="hidden md:flex space-x-6">
+            {["Panorámicas", "Verticales", "Inmobiliarias", "Fotos", "Hyperlapses", "Videos"].map((item) => (
+              <a 
+                key={item} 
+                href={`#${item.toLowerCase()}`} 
+                className="text-sm uppercase tracking-wider text-gray-300 hover:text-white transition-colors"
+              >
+                {item}
+              </a>
+            ))}
+          </nav>
+        </div>
       </div>
     </header>
   );

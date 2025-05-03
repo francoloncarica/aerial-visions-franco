@@ -1,93 +1,91 @@
 
-import { useEffect, useState } from "react";
-import { cn } from "@/lib/utils";
+import { useState, useEffect } from "react";
 
 export default function Hero() {
   const [loaded, setLoaded] = useState(false);
-  
+
   useEffect(() => {
-    // Trigger animation after component mount
-    setLoaded(true);
+    const timer = setTimeout(() => {
+      setLoaded(true);
+    }, 500);
+    
+    return () => clearTimeout(timer);
   }, []);
 
   return (
-    <section className="relative h-screen w-full overflow-hidden">
-      {/* Background video */}
-      <div className="absolute inset-0 bg-drone-black">
-        <video 
-          autoPlay 
-          loop 
-          muted 
+    <section className="relative h-screen flex items-center justify-center overflow-hidden">
+      {/* Background video with overlay */}
+      <div className="absolute inset-0 z-0">
+        <video
+          autoPlay
+          loop
+          muted
           playsInline
-          className="w-full h-full object-cover opacity-70"
-          id="bgVideo"
+          className="absolute inset-0 w-full h-full object-cover"
         >
-          <source src="https://assets.mixkit.co/videos/preview/mixkit-flying-over-a-foggy-forest-at-dawn-22251-large.mp4" type="video/mp4" />
+          <source src="https://assets.mixkit.co/videos/preview/mixkit-drone-rising-and-turning-over-a-dirt-field-48516-large.mp4" type="video/mp4" />
+          Your browser does not support the video tag.
         </video>
-        {/* Dark overlay */}
-        <div className="absolute inset-0 bg-black/60"></div>
+        <div className="absolute inset-0 bg-black/70"></div>
       </div>
 
-      {/* Video controls */}
-      <div className="absolute bottom-10 right-10 z-10">
-        <button 
-          onClick={() => {
-            const video = document.getElementById("bgVideo") as HTMLVideoElement;
-            if (video.paused) {
-              video.play();
-            } else {
-              video.pause();
-            }
-          }}
-          className="w-12 h-12 rounded-full bg-white/10 hover:bg-white/20 flex items-center justify-center backdrop-blur-sm transition-all"
-          aria-label="Play/Pause background video"
-        >
-          <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="w-6 h-6">
-            <path strokeLinecap="round" strokeLinejoin="round" d="M15.75 5.25v13.5m-7.5-13.5v13.5" />
-          </svg>
-        </button>
+      {/* Dynamic background elements */}
+      <div className="absolute inset-0 z-10">
+        <div className="absolute w-full h-full">
+          {/* Grid lines */}
+          <div className="absolute inset-0 grid grid-cols-6 opacity-20">
+            {Array.from({ length: 7 }).map((_, i) => (
+              <div key={`v-${i}`} className="h-full w-px bg-white/30 transform translate-x-full"></div>
+            ))}
+          </div>
+          <div className="absolute inset-0 grid grid-rows-6 opacity-20">
+            {Array.from({ length: 7 }).map((_, i) => (
+              <div key={`h-${i}`} className="w-full h-px bg-white/30 transform translate-y-full"></div>
+            ))}
+          </div>
+          
+          {/* Floating elements */}
+          <div className="absolute top-1/4 left-1/4 w-32 h-32 rounded-full border border-white/20 opacity-50 animate-float-slow"></div>
+          <div className="absolute bottom-1/3 right-1/5 w-48 h-48 rounded-full border border-white/10 opacity-30 animate-float-reverse"></div>
+          <div className="absolute top-1/3 right-1/4 w-24 h-24 rounded-full border border-white/30 opacity-40 animate-pulse"></div>
+          
+          {/* Drone paths */}
+          <div className="absolute inset-0">
+            <svg width="100%" height="100%" className="opacity-20">
+              <path
+                d="M0,100 Q200,300 400,150 T800,300"
+                stroke="rgba(255,255,255,0.2)"
+                strokeWidth="1"
+                fill="none"
+                className="path-animation"
+              />
+              <path
+                d="M100,50 Q300,200 500,100 T900,200"
+                stroke="rgba(255,255,255,0.15)"
+                strokeWidth="1"
+                fill="none"
+                className="path-animation-reverse"
+              />
+            </svg>
+          </div>
+        </div>
       </div>
 
-      {/* Hero content */}
-      <div className="container mx-auto relative z-10 h-full flex flex-col justify-center items-center text-center px-4">
-        <h1 className={cn(
-          "text-4xl md:text-6xl lg:text-7xl font-light tracking-widest text-shadow transition-all duration-1000 transform",
-          loaded ? "translate-y-0 opacity-100" : "translate-y-10 opacity-0"
-        )}>
+      {/* Content */}
+      <div className={`relative z-20 text-center px-4 transition-all duration-1000 transform ${loaded ? 'translate-y-0 opacity-100' : 'translate-y-10 opacity-0'}`}>
+        <h1 className="text-5xl md:text-7xl font-light tracking-widest text-white mb-6 text-shadow">
           FRANCO LONCARICA
         </h1>
-        
-        <div className={cn(
-          "h-px w-24 bg-white/40 my-6 transition-all duration-1000 delay-300",
-          loaded ? "w-24 opacity-100" : "w-0 opacity-0"
-        )}></div>
-        
-        <h2 className={cn(
-          "text-xl md:text-3xl font-extralight tracking-wide text-white/80 text-shadow mb-2 transition-all duration-1000 delay-500",
-          loaded ? "translate-y-0 opacity-100" : "translate-y-10 opacity-0"
-        )}>
-          PORTFOLIO
-        </h2>
-        
-        <p className={cn(
-          "max-w-lg text-base md:text-lg font-light text-white/60 text-shadow transition-all duration-1000 delay-700",
-          loaded ? "translate-y-0 opacity-100" : "translate-y-10 opacity-0"
-        )}>
+        <div className="w-24 h-px bg-white mx-auto mb-6 transition-all duration-1000 delay-300 transform" style={{ width: loaded ? '6rem' : '0' }}></div>
+        <p className="text-lg md:text-xl font-light text-white/80 max-w-2xl mx-auto mb-10 transition-all duration-1000 delay-500 transform" style={{ opacity: loaded ? 1 : 0 }}>
           Capturando el mundo desde perspectivas únicas
         </p>
-        
-        <div className={cn(
-          "mt-12 transition-all duration-1000 delay-1000",
-          loaded ? "translate-y-0 opacity-100" : "translate-y-10 opacity-0"
-        )}>
-          <a 
-            href="#panorámicas"
-            className="px-8 py-3 border border-white/20 hover:border-white/40 rounded-full text-sm uppercase tracking-widest transition-all duration-300 hover:bg-white/5"
-            aria-label="Explorar portfolio"
-          >
-            Explorar
-          </a>
-        </div>
+        <a 
+          href="#panorámicas" 
+          className="inline-block px-8 py-3 border border-white/30 hover:bg-white/10 text-white transition-all duration-500 transform hover:-translate-y-1"
+        >
+          EXPLORAR
+        </a>
       </div>
     </section>
   );
