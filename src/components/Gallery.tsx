@@ -2,7 +2,7 @@
 import { useState, useRef, useEffect } from "react";
 import { cn } from "@/lib/utils";
 import { ChevronLeft, ChevronRight } from "lucide-react";
-import { useInView } from "react-intersection-observer";
+import { useInView } from "@/hooks/useInView";
 
 interface GalleryProps {
   title: string;
