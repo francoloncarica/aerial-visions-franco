@@ -29,44 +29,69 @@ export default function Hero() {
         <div className="absolute inset-0 bg-black/70"></div>
       </div>
 
-      {/* Dynamic background elements */}
+      {/* Dynamic background elements with enhanced animation */}
       <div className="absolute inset-0 z-10">
         <div className="absolute w-full h-full">
-          {/* Grid lines */}
+          {/* Grid lines with subtle movement */}
           <div className="absolute inset-0 grid grid-cols-6 opacity-20">
             {Array.from({ length: 7 }).map((_, i) => (
-              <div key={`v-${i}`} className="h-full w-px bg-white/30 transform translate-x-full"></div>
+              <div 
+                key={`v-${i}`} 
+                className="h-full w-px bg-white/30 transform translate-x-full animate-pulse"
+                style={{ animationDelay: `${i * 0.2}s` }}
+              ></div>
             ))}
           </div>
           <div className="absolute inset-0 grid grid-rows-6 opacity-20">
             {Array.from({ length: 7 }).map((_, i) => (
-              <div key={`h-${i}`} className="w-full h-px bg-white/30 transform translate-y-full"></div>
+              <div 
+                key={`h-${i}`} 
+                className="w-full h-px bg-white/30 transform translate-y-full animate-pulse"
+                style={{ animationDelay: `${i * 0.2}s` }}
+              ></div>
             ))}
           </div>
           
-          {/* Floating elements */}
+          {/* Enhanced floating elements with more dynamic animations */}
           <div className="absolute top-1/4 left-1/4 w-32 h-32 rounded-full border border-white/20 opacity-50 animate-float-slow"></div>
           <div className="absolute bottom-1/3 right-1/5 w-48 h-48 rounded-full border border-white/10 opacity-30 animate-float-reverse"></div>
           <div className="absolute top-1/3 right-1/4 w-24 h-24 rounded-full border border-white/30 opacity-40 animate-pulse"></div>
           
-          {/* Drone paths */}
+          {/* Additional animated elements */}
+          <div className="absolute top-2/3 left-1/3 w-16 h-16 rounded-full bg-white/5 animate-ping" style={{ animationDuration: '4s' }}></div>
+          <div className="absolute bottom-1/4 right-1/3 w-20 h-20 rounded-full border border-white/15 animate-float-slow" style={{ animationDelay: '2s' }}></div>
+          
+          {/* Drone paths with enhanced animation */}
           <div className="absolute inset-0">
-            <svg width="100%" height="100%" className="opacity-20">
+            <svg width="100%" height="100%" className="opacity-30">
               <path
                 d="M0,100 Q200,300 400,150 T800,300"
-                stroke="rgba(255,255,255,0.2)"
+                stroke="rgba(255,255,255,0.3)"
                 strokeWidth="1"
                 fill="none"
                 className="path-animation"
               />
               <path
                 d="M100,50 Q300,200 500,100 T900,200"
-                stroke="rgba(255,255,255,0.15)"
+                stroke="rgba(255,255,255,0.2)"
                 strokeWidth="1"
                 fill="none"
                 className="path-animation-reverse"
               />
+              <path
+                d="M50,200 Q150,100 300,250 T600,150"
+                stroke="rgba(255,255,255,0.25)"
+                strokeWidth="1"
+                fill="none"
+                className="path-animation"
+                style={{ animationDuration: '35s' }}
+              />
             </svg>
+            
+            {/* Animated drone points */}
+            <div className="absolute h-2 w-2 bg-white rounded-full left-1/4 top-1/4 animate-ping" style={{ animationDuration: '4s' }}></div>
+            <div className="absolute h-2 w-2 bg-white rounded-full right-1/3 bottom-1/3 animate-ping" style={{ animationDuration: '5s', animationDelay: '1s' }}></div>
+            <div className="absolute h-2 w-2 bg-white rounded-full left-2/3 top-1/2 animate-ping" style={{ animationDuration: '6s', animationDelay: '2s' }}></div>
           </div>
         </div>
       </div>

@@ -51,13 +51,7 @@ export default function AboutUs() {
                   Email
                 </a>
                 <a 
-                  href="tel:+123456789" 
-                  className="px-6 py-3 bg-white/10 hover:bg-white/20 transition-all rounded text-center"
-                >
-                  Teléfono
-                </a>
-                <a 
-                  href="https://instagram.com" 
+                  href="https://www.instagram.com/francoloncarica/" 
                   target="_blank" 
                   rel="noopener noreferrer"
                   className="px-6 py-3 bg-white/10 hover:bg-white/20 transition-all rounded text-center"

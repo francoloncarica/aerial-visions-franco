@@ -36,7 +36,7 @@ export default function Gallery({ title, images, aspectRatio }: GalleryProps) {
     
     setTimeout(() => {
       setIsAnimating(false);
-    }, 1000); // Increased animation duration for smoother transition
+    }, 1500); // Increased animation duration for smoother transition
   };
   
   const prevSlide = () => {
@@ -50,7 +50,7 @@ export default function Gallery({ title, images, aspectRatio }: GalleryProps) {
     
     setTimeout(() => {
       setIsAnimating(false);
-    }, 1000); // Increased animation duration for smoother transition
+    }, 1500); // Increased animation duration for smoother transition
   };
 
   // Opens the fullscreen image viewer - now conditional based on aspect ratio
@@ -116,7 +116,7 @@ export default function Gallery({ title, images, aspectRatio }: GalleryProps) {
           <div className={cn(
             "grid grid-cols-1 md:grid-cols-3", 
             getGapClass(),
-            "transition-all duration-700 transform",
+            "transition-all duration-1000 ease-in-out", // Increased duration for smoother transitions
             inView ? "translate-y-0 opacity-100" : "translate-y-10 opacity-0",
           )}>
             {images
@@ -128,7 +128,7 @@ export default function Gallery({ title, images, aspectRatio }: GalleryProps) {
                     "overflow-hidden relative group",
                     isImageClickable ? "cursor-pointer" : "cursor-default",
                     aspectRatio,
-                    "transition-all duration-700 ease-out animate-fade-in",
+                    "transition-all duration-1000 ease-out animate-fade-in", // Increased duration for smoother transitions
                   )}
                   onClick={() => isImageClickable && openImageViewer(currentIndex * visibleImages + index)}
                 >
@@ -136,7 +136,7 @@ export default function Gallery({ title, images, aspectRatio }: GalleryProps) {
                     src={image.url} 
                     alt={image.alt}
                     loading="lazy"
-                    className="w-full h-full object-cover transition-all duration-500
+                    className="w-full h-full object-cover transition-all duration-700 
                              filter grayscale group-hover:grayscale-0 group-hover:scale-105"
                   />
                 </div>
@@ -174,7 +174,7 @@ export default function Gallery({ title, images, aspectRatio }: GalleryProps) {
                   key={idx}
                   onClick={() => !isAnimating && setCurrentIndex(idx)}
                   className={cn(
-                    "w-2 h-2 rounded-full transition-all duration-300",
+                    "w-2 h-2 rounded-full transition-all duration-500",
                     idx === currentIndex ? "bg-white w-4" : "bg-white/30",
                   )}
                   aria-label={`Go to slide ${idx + 1}`}
@@ -185,7 +185,7 @@ export default function Gallery({ title, images, aspectRatio }: GalleryProps) {
         </div>
       </div>
 
-      {/* Fullscreen Image Viewer with optimal display for panoramic images */}
+      {/* Fullscreen Image Viewer optimized for panoramic images */}
       <Dialog open={selectedImage !== null} onOpenChange={(open) => !open && closeImageViewer()}>
         <DialogContent 
           className="max-w-[95vw] w-full h-[90vh] p-0 border-none bg-transparent"
