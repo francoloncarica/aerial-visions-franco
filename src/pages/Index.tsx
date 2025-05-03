@@ -3,9 +3,9 @@ import { useEffect } from "react";
 import Header from "@/components/Header";
 import Hero from "@/components/Hero";
 import Gallery from "@/components/Gallery";
+import AboutUs from "@/components/AboutUs";
 import Footer from "@/components/Footer";
 import { photoCategories } from "@/data/photos";
-import { useInView } from "@/hooks/useInView";
 
 const Index = () => {
   useEffect(() => {
@@ -48,6 +48,7 @@ const Index = () => {
             aspectRatio={category.aspectRatio}
           />
         ))}
+        <AboutUs />
       </main>
       
       <Footer />

@@ -1,8 +1,9 @@
 
-import { useState, useRef, useEffect } from "react";
+import { useState, useRef } from "react";
 import { cn } from "@/lib/utils";
-import { ChevronLeft, ChevronRight } from "lucide-react";
+import { ChevronLeft, ChevronRight, X } from "lucide-react";
 import { useInView } from "@/hooks/useInView";
+import { Dialog, DialogContent } from "@/components/ui/dialog";
 
 interface GalleryProps {
   title: string;
@@ -13,6 +14,7 @@ interface GalleryProps {
 export default function Gallery({ title, images, aspectRatio }: GalleryProps) {
   const [currentIndex, setCurrentIndex] = useState(0);
   const [isAnimating, setIsAnimating] = useState(false);
+  const [selectedImage, setSelectedImage] = useState<number | null>(null);
   const galleryRef = useRef<HTMLDivElement>(null);
   
   const { ref, inView } = useInView({
@@ -34,7 +36,7 @@ export default function Gallery({ title, images, aspectRatio }: GalleryProps) {
     
     setTimeout(() => {
       setIsAnimating(false);
-    }, 600); // Match this with your animation duration
+    }, 800); // Increased animation duration for smoother transition
   };
   
   const prevSlide = () => {
@@ -48,12 +50,43 @@ export default function Gallery({ title, images, aspectRatio }: GalleryProps) {
     
     setTimeout(() => {
       setIsAnimating(false);
-    }, 600); // Match this with your animation duration
+    }, 800); // Increased animation duration for smoother transition
+  };
+
+  // Opens the fullscreen image viewer
+  const openImageViewer = (imageIndex: number) => {
+    setSelectedImage(imageIndex);
+  };
+
+  // Navigate to previous image in fullscreen viewer
+  const prevImage = () => {
+    if (selectedImage === null) return;
+    setSelectedImage((prev) => (prev === null ? null : (prev - 1 + images.length) % images.length));
+  };
+
+  // Navigate to next image in fullscreen viewer
+  const nextImage = () => {
+    if (selectedImage === null) return;
+    setSelectedImage((prev) => (prev === null ? null : (prev + 1) % images.length));
+  };
+
+  // Close the fullscreen image viewer
+  const closeImageViewer = () => {
+    setSelectedImage(null);
   };
 
   // Determine the appropriate gap based on viewport width
   const getGapClass = () => {
     return "gap-3 md:gap-4 lg:gap-6";
+  };
+
+  // Handle keyboard navigation in the image viewer
+  const handleKeyDown = (e: React.KeyboardEvent) => {
+    if (selectedImage === null) return;
+    
+    if (e.key === "ArrowRight") nextImage();
+    else if (e.key === "ArrowLeft") prevImage();
+    else if (e.key === "Escape") closeImageViewer();
   };
 
   return (
@@ -85,20 +118,19 @@ export default function Gallery({ title, images, aspectRatio }: GalleryProps) {
                 <div 
                   key={image.id} 
                   className={cn(
-                    "overflow-hidden relative group",
+                    "overflow-hidden relative group cursor-pointer",
                     aspectRatio,
-                    "transition-all duration-500 ease-out animate-fade-in",
+                    "transition-all duration-700 ease-out animate-fade-in",
                   )}
+                  onClick={() => openImageViewer(currentIndex * visibleImages + index)}
                 >
                   <img 
                     src={image.url} 
                     alt={image.alt}
                     loading="lazy"
-                    className="w-full h-full object-cover hover-scale"
+                    className="w-full h-full object-cover transition-all duration-500
+                             filter grayscale group-hover:grayscale-0 group-hover:scale-105"
                   />
-                  <div className="absolute inset-0 bg-black/50 opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-center justify-center">
-                    <p className="text-white text-shadow text-sm md:text-base">{image.alt}</p>
-                  </div>
                 </div>
               ))}
           </div>
@@ -109,7 +141,7 @@ export default function Gallery({ title, images, aspectRatio }: GalleryProps) {
               <button
                 onClick={prevSlide}
                 disabled={isAnimating}
-                className="absolute left-0 top-1/2 -translate-y-1/2 -translate-x-1/2 md:-translate-x-6 z-10 w-10 h-10 rounded-full bg-black/40 hover:bg-black/70 flex items-center justify-center transition-all backdrop-blur-sm"
+                className="absolute left-0 top-1/2 -translate-y-1/2 -translate-x-1/2 md:-translate-x-6 z-10 w-10 h-10 rounded-full bg-black/60 hover:bg-black/80 flex items-center justify-center transition-all backdrop-blur-sm"
                 aria-label="Previous images"
               >
                 <ChevronLeft size={24} className="text-white/90" />
@@ -118,7 +150,7 @@ export default function Gallery({ title, images, aspectRatio }: GalleryProps) {
               <button
                 onClick={nextSlide}
                 disabled={isAnimating}
-                className="absolute right-0 top-1/2 -translate-y-1/2 translate-x-1/2 md:translate-x-6 z-10 w-10 h-10 rounded-full bg-black/40 hover:bg-black/70 flex items-center justify-center transition-all backdrop-blur-sm"
+                className="absolute right-0 top-1/2 -translate-y-1/2 translate-x-1/2 md:translate-x-6 z-10 w-10 h-10 rounded-full bg-black/60 hover:bg-black/80 flex items-center justify-center transition-all backdrop-blur-sm"
                 aria-label="Next images"
               >
                 <ChevronRight size={24} className="text-white/90" />
@@ -134,7 +166,7 @@ export default function Gallery({ title, images, aspectRatio }: GalleryProps) {
                   key={idx}
                   onClick={() => !isAnimating && setCurrentIndex(idx)}
                   className={cn(
-                    "w-2 h-2 rounded-full transition-all",
+                    "w-2 h-2 rounded-full transition-all duration-300",
                     idx === currentIndex ? "bg-white w-4" : "bg-white/30",
                   )}
                   aria-label={`Go to slide ${idx + 1}`}
@@ -144,6 +176,48 @@ export default function Gallery({ title, images, aspectRatio }: GalleryProps) {
           )}
         </div>
       </div>
+
+      {/* Fullscreen Image Viewer */}
+      <Dialog open={selectedImage !== null} onOpenChange={(open) => !open && closeImageViewer()}>
+        <DialogContent 
+          className="max-w-[95vw] w-full h-[90vh] p-0 border-none bg-transparent"
+          onKeyDown={handleKeyDown}
+        >
+          <div className="relative w-full h-full flex items-center justify-center">
+            {selectedImage !== null && (
+              <img
+                src={images[selectedImage].url}
+                alt={images[selectedImage].alt}
+                className="max-h-full max-w-full object-contain animate-fade-in"
+              />
+            )}
+            
+            <button 
+              onClick={closeImageViewer}
+              className="absolute top-4 right-4 w-10 h-10 rounded-full bg-black/60 hover:bg-black/80 flex items-center justify-center transition-all backdrop-blur-sm z-10"
+              aria-label="Close image viewer"
+            >
+              <X size={24} className="text-white/90" />
+            </button>
+            
+            <button
+              onClick={prevImage}
+              className="absolute left-4 top-1/2 -translate-y-1/2 w-10 h-10 rounded-full bg-black/60 hover:bg-black/80 flex items-center justify-center transition-all backdrop-blur-sm"
+              aria-label="Previous image"
+            >
+              <ChevronLeft size={24} className="text-white/90" />
+            </button>
+            
+            <button
+              onClick={nextImage}
+              className="absolute right-4 top-1/2 -translate-y-1/2 w-10 h-10 rounded-full bg-black/60 hover:bg-black/80 flex items-center justify-center transition-all backdrop-blur-sm"
+              aria-label="Next image"
+            >
+              <ChevronRight size={24} className="text-white/90" />
+            </button>
+          </div>
+        </DialogContent>
+      </Dialog>
     </section>
   );
 }
