@@ -1,13 +1,12 @@
-
 import { useState, useEffect } from "react";
 import { cn } from "@/lib/utils";
 import { Pause, Play } from "lucide-react";
 
 export default function Header() {
   const [scrolled, setScrolled] = useState(false);
-  const [isPlaying, setIsPlaying] = useState(false);
-  const [audio] = useState(() => new Audio("/ambient-chillout.mp3"));
-  
+  const [isPlaying, setIsPlaying] = useState(true); // Inicialmente en "true" para que arranque reproduciendo
+  const [audio] = useState(() => new Audio("/cancion.mp4"));
+
   useEffect(() => {
     const handleScroll = () => {
       const isScrolled = window.scrollY > 50;
@@ -17,14 +16,19 @@ export default function Header() {
     };
 
     window.addEventListener("scroll", handleScroll);
-    
-    // Configure audio
+
+    // Configurar y reproducir audio automáticamente
     audio.loop = true;
     audio.volume = 0.4;
-    
+    audio
+      .play()
+      .catch((error) => {
+        console.error("Error al reproducir el audio automáticamente:", error);
+      });
+
     return () => {
       window.removeEventListener("scroll", handleScroll);
-      audio.pause();
+      // No pausamos el audio aquí para que siga reproduciéndose
     };
   }, [scrolled, audio]);
 
@@ -32,15 +36,15 @@ export default function Header() {
     if (isPlaying) {
       audio.pause();
     } else {
-      audio.play().catch(error => {
-        console.error("Audio playback error:", error);
+      audio.play().catch((error) => {
+        console.error("Error al reproducir el audio:", error);
       });
     }
     setIsPlaying(!isPlaying);
   };
 
   return (
-    <header 
+    <header
       className={cn(
         "fixed top-0 left-0 w-full z-50 transition-all duration-500 py-6",
         scrolled ? "glass-overlay py-4" : "bg-transparent"
@@ -50,7 +54,7 @@ export default function Header() {
         <div className="text-xl md:text-2xl font-light tracking-widest text-white">
           FRANCO LONCARICA
         </div>
-        
+
         <div className="flex items-center space-x-4">
           <button
             onClick={toggleAudio}
@@ -63,12 +67,12 @@ export default function Header() {
               <Play size={20} className="text-white/90" />
             )}
           </button>
-          
+
           <nav className="hidden md:flex space-x-6">
             {["Panorámicas", "Verticales", "Inmobiliarias", "Fotos", "Hyperlapses", "Videos"].map((item) => (
-              <a 
-                key={item} 
-                href={`#${item.toLowerCase()}`} 
+              <a
+                key={item}
+                href={`#${item.toLowerCase()}`}
                 className="text-sm uppercase tracking-wider text-gray-300 hover:text-white transition-colors"
               >
                 {item}
