@@ -15,10 +15,10 @@ const Index = () => {
     // Set the document title
     document.title = "Franco Loncarica | Portfolio";
     
-    // Loading animation
+    // Loading animation - slightly longer to account for local image loading
     const timer = setTimeout(() => {
       setLoading(false);
-    }, 1500);
+    }, 1800);
     
     // Smooth scroll functionality
     document.querySelectorAll('a[href^="#"]').forEach(anchor => {

@@ -7,32 +7,32 @@ export const photoCategories = [
     images: [
       { 
         id: 1, 
-        url: "https://images.unsplash.com/photo-1482938289607-e9573fc25ebb?ixlib=rb-1.2.1&auto=format&fit=crop&w=1920&q=80", 
+        url: "/images/panoramicas/panoramica-1.jpg", 
         alt: "Vista panorámica de valle montañoso" 
       },
       { 
         id: 2, 
-        url: "https://images.unsplash.com/photo-1470071459604-3b5ec3a7fe05?ixlib=rb-1.2.1&auto=format&fit=crop&w=1920&q=80", 
+        url: "/images/panoramicas/panoramica-2.jpg", 
         alt: "Amanecer sobre las montañas" 
       },
       { 
         id: 3, 
-        url: "https://images.unsplash.com/photo-1433086966358-54859d0ed716?ixlib=rb-1.2.1&auto=format&fit=crop&w=1920&q=80", 
+        url: "/images/panoramicas/panoramica-3.jpg", 
         alt: "Cascada entre montañas" 
       },
       { 
         id: 4, 
-        url: "https://images.unsplash.com/photo-1470770841072-f978cf4d019e?ixlib=rb-1.2.1&auto=format&fit=crop&w=1920&q=80", 
+        url: "/images/panoramicas/panoramica-4.jpg", 
         alt: "Lago entre montañas" 
       },
       { 
         id: 5, 
-        url: "https://images.unsplash.com/photo-1470770903148-2bb5d0596216?ixlib=rb-1.2.1&auto=format&fit=crop&w=1920&q=80", 
+        url: "/images/panoramicas/panoramica-5.jpg", 
         alt: "Valle verde desde arriba" 
       },
       { 
         id: 6, 
-        url: "https://images.unsplash.com/photo-1535916707207-35f97e715e1c?ixlib=rb-1.2.1&auto=format&fit=crop&w=1920&q=80", 
+        url: "/images/panoramicas/panoramica-6.jpg", 
         alt: "Ciudad desde las alturas" 
       }
     ]
@@ -44,32 +44,32 @@ export const photoCategories = [
     images: [
       { 
         id: 1, 
-        url: "https://images.unsplash.com/photo-1581092795360-fd1ca04f0952?ixlib=rb-1.2.1&auto=format&fit=crop&w=768&q=80", 
+        url: "/images/verticales/vertical-1.jpg", 
         alt: "Rascacielos en vertical" 
       },
       { 
         id: 2, 
-        url: "https://images.unsplash.com/photo-1526374965328-7f61d4dc18c5?ixlib=rb-1.2.1&auto=format&fit=crop&w=768&q=80", 
+        url: "/images/verticales/vertical-2.jpg", 
         alt: "Patrón urbano vertical" 
       },
       { 
         id: 3, 
-        url: "https://images.unsplash.com/photo-1618331835717-801e976710b2?ixlib=rb-1.2.1&auto=format&fit=crop&w=768&q=80", 
+        url: "/images/verticales/vertical-3.jpg", 
         alt: "Cañón profundo" 
       },
       { 
         id: 4, 
-        url: "https://images.unsplash.com/photo-1511300636408-a63a89df3482?ixlib=rb-1.2.1&auto=format&fit=crop&w=768&q=80", 
+        url: "/images/verticales/vertical-4.jpg", 
         alt: "Cascada en vertical" 
       },
       { 
         id: 5, 
-        url: "https://images.unsplash.com/photo-1620503374956-c942862f0372?ixlib=rb-1.2.1&auto=format&fit=crop&w=768&q=80", 
+        url: "/images/verticales/vertical-5.jpg", 
         alt: "Torres en la ciudad" 
       },
       { 
         id: 6, 
-        url: "https://images.unsplash.com/photo-1526547273353-62d201f89e4f?ixlib=rb-1.2.1&auto=format&fit=crop&w=768&q=80", 
+        url: "/images/verticales/vertical-6.jpg", 
         alt: "Perspectiva vertical natural" 
       }
     ]
@@ -81,32 +81,32 @@ export const photoCategories = [
     images: [
       { 
         id: 1, 
-        url: "https://images.unsplash.com/photo-1600607687939-ce8a6c25118c?ixlib=rb-1.2.1&auto=format&fit=crop&w=1920&q=80", 
+        url: "/images/inmobiliarias/inmobiliaria-1.jpg", 
         alt: "Mansión con piscina" 
       },
       { 
         id: 2, 
-        url: "https://images.unsplash.com/photo-1600596542815-ffad4c1539a9?ixlib=rb-1.2.1&auto=format&fit=crop&w=1920&q=80", 
+        url: "/images/inmobiliarias/inmobiliaria-2.jpg", 
         alt: "Casa moderna con jardín" 
       },
       { 
         id: 3, 
-        url: "https://images.unsplash.com/photo-1600585154340-be6161a56a0c?ixlib=rb-1.2.1&auto=format&fit=crop&w=1920&q=80", 
+        url: "/images/inmobiliarias/inmobiliaria-3.jpg", 
         alt: "Propiedad de lujo" 
       },
       { 
         id: 4, 
-        url: "https://images.unsplash.com/photo-1605276374104-dee2a0ed3cd6?ixlib=rb-1.2.1&auto=format&fit=crop&w=1920&q=80", 
+        url: "/images/inmobiliarias/inmobiliaria-4.jpg", 
         alt: "Complejo residencial" 
       },
       { 
         id: 5, 
-        url: "https://images.unsplash.com/photo-1512917774080-9991f1c4c750?ixlib=rb-1.2.1&auto=format&fit=crop&w=1920&q=80", 
+        url: "/images/inmobiliarias/inmobiliaria-5.jpg", 
         alt: "Casa contemporánea" 
       },
       { 
         id: 6, 
-        url: "https://images.unsplash.com/photo-1600047509807-f8261a0e41e5?ixlib=rb-1.2.1&auto=format&fit=crop&w=1920&q=80", 
+        url: "/images/inmobiliarias/inmobiliaria-6.jpg", 
         alt: "Villa de lujo" 
       }
     ]
@@ -118,32 +118,32 @@ export const photoCategories = [
     images: [
       { 
         id: 1, 
-        url: "https://images.unsplash.com/photo-1478033394151-c931d5a4bdd6?ixlib=rb-1.2.1&auto=format&fit=crop&w=1080&q=80", 
+        url: "/images/fotos/foto-1.jpg", 
         alt: "Vista ciudad desde arriba" 
       },
       { 
         id: 2, 
-        url: "https://images.unsplash.com/photo-1624913503273-5f9c4e980dba?ixlib=rb-1.2.1&auto=format&fit=crop&w=1080&q=80", 
+        url: "/images/fotos/foto-2.jpg", 
         alt: "Geometría urbana" 
       },
       { 
         id: 3, 
-        url: "https://images.unsplash.com/photo-1487887235947-a955ef187fcc?ixlib=rb-1.2.1&auto=format&fit=crop&w=1080&q=80", 
+        url: "/images/fotos/foto-3.jpg", 
         alt: "Drone en vuelo" 
       },
       { 
         id: 4, 
-        url: "https://images.unsplash.com/photo-1576369333476-c660d49d7f53?ixlib=rb-1.2.1&auto=format&fit=crop&w=1080&q=80", 
+        url: "/images/fotos/foto-4.jpg", 
         alt: "Playa desde arriba" 
       },
       { 
         id: 5, 
-        url: "https://images.unsplash.com/photo-1566825128237-a60cf049c4e9?ixlib=rb-1.2.1&auto=format&fit=crop&w=1080&q=80", 
+        url: "/images/fotos/foto-5.jpg", 
         alt: "Drone sobre ciudad" 
       },
       { 
         id: 6, 
-        url: "https://images.unsplash.com/photo-1576834198274-c27aba1c7159?ixlib=rb-1.2.1&auto=format&fit=crop&w=1080&q=80", 
+        url: "/images/fotos/foto-6.jpg", 
         alt: "Carretera sinuosa" 
       }
     ]
@@ -155,32 +155,32 @@ export const photoCategories = [
     images: [
       { 
         id: 1, 
-        url: "https://images.unsplash.com/photo-1508514177221-188b1cf16e9d?ixlib=rb-1.2.1&auto=format&fit=crop&w=1920&q=80", 
+        url: "/images/hyperlapses/hyperlapse-1.jpg", 
         alt: "Hyperlapse urbano" 
       },
       { 
         id: 2, 
-        url: "https://images.unsplash.com/photo-1462331940025-496dfbfc7564?ixlib=rb-1.2.1&auto=format&fit=crop&w=1920&q=80", 
+        url: "/images/hyperlapses/hyperlapse-2.jpg", 
         alt: "Hyperlapse al atardecer" 
       },
       { 
         id: 3, 
-        url: "https://images.unsplash.com/photo-1526045612212-70caf35c14df?ixlib=rb-1.2.1&auto=format&fit=crop&w=1920&q=80", 
+        url: "/images/hyperlapses/hyperlapse-3.jpg", 
         alt: "Hyperlapse carretera" 
       },
       { 
         id: 4, 
-        url: "https://images.unsplash.com/photo-1500375592092-40eb2168fd21?ixlib=rb-1.2.1&auto=format&fit=crop&w=1920&q=80", 
+        url: "/images/hyperlapses/hyperlapse-4.jpg", 
         alt: "Hyperlapse costa" 
       },
       { 
         id: 5, 
-        url: "https://images.unsplash.com/photo-1520106392146-ef585c111254?ixlib=rb-1.2.1&auto=format&fit=crop&w=1920&q=80", 
+        url: "/images/hyperlapses/hyperlapse-5.jpg", 
         alt: "Hyperlapse montaña" 
       },
       { 
         id: 6, 
-        url: "https://images.unsplash.com/photo-1600228390593-75910290f2d7?ixlib=rb-1.2.1&auto=format&fit=crop&w=1920&q=80", 
+        url: "/images/hyperlapses/hyperlapse-6.jpg", 
         alt: "Hyperlapse puente" 
       }
     ]
@@ -192,32 +192,32 @@ export const photoCategories = [
     images: [
       { 
         id: 1, 
-        url: "https://images.unsplash.com/photo-1562525990-8dca6f126ebc?ixlib=rb-1.2.1&auto=format&fit=crop&w=1920&q=80", 
+        url: "/images/videos/video-1.jpg", 
         alt: "Escena para video aéreo" 
       },
       { 
         id: 2, 
-        url: "https://images.unsplash.com/photo-1578736888265-acfda5e79c72?ixlib=rb-1.2.1&auto=format&fit=crop&w=1920&q=80", 
+        url: "/images/videos/video-2.jpg", 
         alt: "Plano drone costa" 
       },
       { 
         id: 3, 
-        url: "https://images.unsplash.com/photo-1578736999375-530e69619da1?ixlib=rb-1.2.1&auto=format&fit=crop&w=1920&q=80", 
+        url: "/images/videos/video-3.jpg", 
         alt: "Video urbano" 
       },
       { 
         id: 4, 
-        url: "https://images.unsplash.com/photo-1576073827788-c2d19c61c7e783?ixlib=rb-1.2.1&auto=format&fit=crop&w=1920&q=80", 
+        url: "/images/videos/video-4.jpg", 
         alt: "Toma aérea atardecer" 
       },
       { 
         id: 5, 
-        url: "https://images.unsplash.com/photo-1576073719676-aa95576db207?ixlib=rb-1.2.1&auto=format&fit=crop&w=1920&q=80", 
+        url: "/images/videos/video-5.jpg", 
         alt: "Escena filmación drone" 
       },
       { 
         id: 6, 
-        url: "https://images.unsplash.com/photo-1535139262971-c51845709a48?ixlib=rb-1.2.1&auto=format&fit=crop&w=1920&q=80", 
+        url: "/images/videos/video-6.jpg", 
         alt: "Filmación naturaleza" 
       }
     ]
