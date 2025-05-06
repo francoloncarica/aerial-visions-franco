@@ -37,9 +37,11 @@ const Logo = ({ variant = "light", size = "md" }: LogoProps) => {
       </div>
       
       {/* Logo text */}
-      <h1 className={`font-light tracking-widest ${textColor} ${sizeClasses[size]}`}>
-        FRANCO<span className="font-medium">LONCARICA</span>
-      </h1>
+      <div className={`font-light tracking-widest ${textColor} ${sizeClasses[size]} flex items-baseline`}>
+        <span className="font-medium">AERIAL</span>
+        <span className="text-sm mx-2 opacity-70">•</span>
+        <span className="font-light text-sm md:text-base tracking-wider opacity-80">PORTFOLIO</span>
+      </div>
     </div>
   );
 };

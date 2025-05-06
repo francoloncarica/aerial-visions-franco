@@ -1,5 +1,6 @@
 
 import Logo from "./Logo";
+import { Instagram } from "lucide-react";
 
 export default function Footer() {
   return (
@@ -9,12 +10,12 @@ export default function Footer() {
           {/* Logo and copyright */}
           <div className="flex flex-col items-center md:items-start gap-4">
             <Logo size="md" />
-            <p className="text-white/50 text-sm">© {new Date().getFullYear()} Franco Loncarica. Todos los derechos reservados.</p>
+            <p className="text-white/50 text-sm">© {new Date().getFullYear()} Aerial Portfolio. Todos los derechos reservados.</p>
           </div>
           
           {/* Contact section */}
           <div className="text-center md:text-right">
-            <h3 className="text-xl font-light mb-4">Contactanos</h3>
+            <h3 className="text-xl font-light mb-4">Contáctanos</h3>
             <div className="flex flex-col gap-2">
               <a 
                 href="mailto:info@francoloncarica.com" 
@@ -27,9 +28,10 @@ export default function Footer() {
                 href="https://www.instagram.com/francoloncarica/" 
                 target="_blank" 
                 rel="noopener noreferrer"
-                className="text-white/70 hover:text-white transition-colors"
+                className="flex items-center justify-center md:justify-end text-white/70 hover:text-white transition-colors gap-2"
               >
-                Instagram: @francoloncarica
+                <Instagram size={18} />
+                <span>@francoloncarica</span>
               </a>
             </div>
           </div>

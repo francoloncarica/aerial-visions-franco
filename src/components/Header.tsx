@@ -1,5 +1,6 @@
+
 import { useState, useEffect } from "react";
-import { Play, Pause } from "lucide-react";
+import { Play, Pause, Instagram, Mail } from "lucide-react";
 import Logo from "./Logo";
 
 export default function Header() {
@@ -49,11 +50,31 @@ export default function Header() {
           <Logo size={isScrolled ? "sm" : "md"} />
         </a>
         
-        <div className="flex items-center">
+        <div className="flex items-center gap-4">
+          {/* Social icons */}
+          <div className="hidden md:flex items-center gap-4">
+            <a 
+              href="https://www.instagram.com/francoloncarica/"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="text-white/70 hover:text-white transition-all"
+              aria-label="Instagram"
+            >
+              <Instagram size={20} />
+            </a>
+            <a 
+              href="mailto:info@francoloncarica.com"
+              className="text-white/70 hover:text-white transition-all"
+              aria-label="Email"
+            >
+              <Mail size={20} />
+            </a>
+          </div>
+          
           {/* Audio control */}
           <button
             onClick={toggleAudio}
-            className="mr-6 w-10 h-10 rounded-full bg-white/10 hover:bg-white/20 flex items-center justify-center transition-all"
+            className="w-10 h-10 rounded-full bg-white/10 hover:bg-white/20 flex items-center justify-center transition-all"
             aria-label={isPlaying ? "Pause music" : "Play music"}
           >
             {isPlaying ? (
@@ -82,7 +103,15 @@ export default function Header() {
             </a>
           </nav>
           
-          {/* Mobile menu button (unchanged) */}
+          {/* Contact button - new addition */}
+          <a
+            href="#about"
+            className="hidden md:flex px-4 py-2 border border-white/30 hover:bg-white/10 text-white text-sm transition-all duration-300 transform hover:-translate-y-1"
+          >
+            CONTÁCTAME
+          </a>
+          
+          {/* Mobile menu button */}
           <button
             className="md:hidden w-10 h-10 rounded-full bg-white/10 hover:bg-white/20 flex flex-col items-center justify-center gap-1.5 transition-all"
             aria-label="Menu"

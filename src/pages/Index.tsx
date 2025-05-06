@@ -15,7 +15,7 @@ const Index = () => {
 
   useEffect(() => {
     // Set the document title
-    document.title = "Franco Loncarica | Portfolio";
+    document.title = "Aerial Portfolio | Fotografía y Video con Drones";
     
     // Loading animation with progress
     const totalTime = 2000; // 2 seconds
@@ -116,6 +116,6 @@ const Index = () => {
       <Footer />
     </div>
   );
-};
+}
 
 export default Index;

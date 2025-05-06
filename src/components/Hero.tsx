@@ -113,14 +113,22 @@ export default function Hero() {
         </div>
         <div className="w-24 h-px bg-white mx-auto mb-6 transition-all duration-1000 delay-300 transform" style={{ width: loaded ? '6rem' : '0' }}></div>
         <p className="text-lg md:text-xl font-light text-white/80 max-w-2xl mx-auto mb-10 transition-all duration-1000 delay-500 transform" style={{ opacity: loaded ? 1 : 0 }}>
-          Capturando el mundo desde perspectivas únicas
+          Capturando perspectivas únicas: Fotografía y videografía con drones
         </p>
-        <a 
-          href="#panorámicas" 
-          className="inline-block px-8 py-3 border border-white/30 hover:bg-white/10 text-white transition-all duration-500 transform hover:-translate-y-1"
-        >
-          EXPLORAR
-        </a>
+        <div className="flex flex-col md:flex-row gap-4 justify-center">
+          <a 
+            href="#panorámicas" 
+            className="inline-block px-8 py-3 border border-white/30 hover:bg-white/10 text-white transition-all duration-500 transform hover:-translate-y-1"
+          >
+            EXPLORAR PORTFOLIO
+          </a>
+          <a 
+            href="#about" 
+            className="inline-block px-8 py-3 bg-white/10 hover:bg-white/20 text-white transition-all duration-500 transform hover:-translate-y-1"
+          >
+            SOBRE MÍ
+          </a>
+        </div>
       </div>
     </section>
   );
