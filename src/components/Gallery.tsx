@@ -1,17 +1,18 @@
 
 import { useState, useRef } from "react";
 import { cn } from "@/lib/utils";
-import { ChevronLeft, ChevronRight, X } from "lucide-react";
+import { ChevronLeft, ChevronRight, X, Video, Image } from "lucide-react";
 import { useInView } from "@/hooks/useInView";
 import { Dialog, DialogContent } from "@/components/ui/dialog";
 
 interface GalleryProps {
   title: string;
-  images: { id: number; url: string; alt: string }[];
+  images: { id: number; url: string; alt: string; thumbnailUrl?: string; }[];
   aspectRatio: string;
+  mediaType?: "image" | "video";
 }
 
-export default function Gallery({ title, images, aspectRatio }: GalleryProps) {
+export default function Gallery({ title, images, aspectRatio, mediaType = "image" }: GalleryProps) {
   const [currentIndex, setCurrentIndex] = useState(0);
   const [isAnimating, setIsAnimating] = useState(false);
   const [selectedImage, setSelectedImage] = useState<number | null>(null);
@@ -36,7 +37,7 @@ export default function Gallery({ title, images, aspectRatio }: GalleryProps) {
     
     setTimeout(() => {
       setIsAnimating(false);
-    }, 1500); // Increased animation duration for smoother transition
+    }, 800); // Smoother transition with shorter duration
   };
   
   const prevSlide = () => {
@@ -50,10 +51,10 @@ export default function Gallery({ title, images, aspectRatio }: GalleryProps) {
     
     setTimeout(() => {
       setIsAnimating(false);
-    }, 1500); // Increased animation duration for smoother transition
+    }, 800); // Smoother transition with shorter duration
   };
 
-  // Opens the fullscreen image viewer - now conditional based on aspect ratio
+  // Opens the fullscreen image/video viewer
   const openImageViewer = (imageIndex: number) => {
     // For vertical images, don't open the viewer
     if (aspectRatio.includes("aspect-[3328/7936]")) {
@@ -62,19 +63,19 @@ export default function Gallery({ title, images, aspectRatio }: GalleryProps) {
     setSelectedImage(imageIndex);
   };
 
-  // Navigate to previous image in fullscreen viewer
+  // Navigate to previous media in fullscreen viewer
   const prevImage = () => {
     if (selectedImage === null) return;
     setSelectedImage((prev) => (prev === null ? null : (prev - 1 + images.length) % images.length));
   };
 
-  // Navigate to next image in fullscreen viewer
+  // Navigate to next media in fullscreen viewer
   const nextImage = () => {
     if (selectedImage === null) return;
     setSelectedImage((prev) => (prev === null ? null : (prev + 1) % images.length));
   };
 
-  // Close the fullscreen image viewer
+  // Close the fullscreen media viewer
   const closeImageViewer = () => {
     setSelectedImage(null);
   };
@@ -93,8 +94,41 @@ export default function Gallery({ title, images, aspectRatio }: GalleryProps) {
     else if (e.key === "Escape") closeImageViewer();
   };
 
-  // Determine if image is clickable (not for vertical images)
-  const isImageClickable = !aspectRatio.includes("aspect-[3328/7936]");
+  // Determine if media is clickable (not for vertical images)
+  const isMediaClickable = !aspectRatio.includes("aspect-[3328/7936]");
+  
+  // Render the appropriate media element (image or video)
+  const renderMedia = (url: string, alt: string, index: number, inGallery = true) => {
+    const isVideo = mediaType === "video" || url.match(/\.(mp4|webm|ogg)$/i);
+    
+    if (isVideo) {
+      return (
+        <video 
+          src={url}
+          title={alt}
+          className="w-full h-full object-cover transition-all duration-700 
+                   filter grayscale group-hover:grayscale-0"
+          muted
+          loop
+          playsInline
+          autoPlay={!inGallery}
+          controls={!inGallery}
+          onMouseOver={(e) => e.currentTarget.play()}
+          onMouseOut={(e) => inGallery && e.currentTarget.pause()}
+        />
+      );
+    }
+    
+    return (
+      <img 
+        src={url} 
+        alt={alt}
+        loading={inGallery ? "lazy" : "eager"}
+        className="w-full h-full object-cover transition-all duration-700 
+                 filter grayscale group-hover:grayscale-0 group-hover:scale-105"
+      />
+    );
+  };
 
   return (
     <section 
@@ -107,7 +141,10 @@ export default function Gallery({ title, images, aspectRatio }: GalleryProps) {
           "mb-12 transition-all duration-700 transform",
           inView ? "translate-y-0 opacity-100" : "translate-y-10 opacity-0"
         )}>
-          <h2 className="text-3xl md:text-4xl font-light tracking-wider mb-4">{title}</h2>
+          <h2 className="text-3xl md:text-4xl font-light tracking-wider mb-4 flex items-center">
+            {title}
+            {mediaType === "video" && <Video size={24} className="ml-2 text-white/70" />}
+          </h2>
           <div className="w-16 h-px bg-white/40"></div>
         </div>
         
@@ -116,7 +153,7 @@ export default function Gallery({ title, images, aspectRatio }: GalleryProps) {
           <div className={cn(
             "grid grid-cols-1 md:grid-cols-3", 
             getGapClass(),
-            "transition-all duration-1000 ease-in-out", // Increased duration for smoother transitions
+            "transition-all duration-700 ease-out", // Smoother transition
             inView ? "translate-y-0 opacity-100" : "translate-y-10 opacity-0",
           )}>
             {images
@@ -126,19 +163,21 @@ export default function Gallery({ title, images, aspectRatio }: GalleryProps) {
                   key={image.id} 
                   className={cn(
                     "overflow-hidden relative group",
-                    isImageClickable ? "cursor-pointer" : "cursor-default",
+                    isMediaClickable ? "cursor-pointer" : "cursor-default",
                     aspectRatio,
-                    "transition-all duration-1000 ease-out animate-fade-in", // Increased duration for smoother transitions
+                    "transition-all duration-700 ease-out animate-fade-in", // Smoother transition
+                    "transform hover:z-10", // Slight emphasis on hover
                   )}
-                  onClick={() => isImageClickable && openImageViewer(currentIndex * visibleImages + index)}
+                  onClick={() => isMediaClickable && openImageViewer(currentIndex * visibleImages + index)}
                 >
-                  <img 
-                    src={image.url} 
-                    alt={image.alt}
-                    loading="lazy"
-                    className="w-full h-full object-cover transition-all duration-700 
-                             filter grayscale group-hover:grayscale-0 group-hover:scale-105"
-                  />
+                  {renderMedia(image.url, image.alt, index)}
+                  
+                  {/* Media type indicator */}
+                  {mediaType === "video" && (
+                    <div className="absolute top-2 right-2 bg-black/50 p-1 rounded-full">
+                      <Video size={16} className="text-white" />
+                    </div>
+                  )}
                 </div>
               ))}
           </div>
@@ -185,7 +224,7 @@ export default function Gallery({ title, images, aspectRatio }: GalleryProps) {
         </div>
       </div>
 
-      {/* Fullscreen Image Viewer optimized for panoramic images */}
+      {/* Fullscreen Media Viewer */}
       <Dialog open={selectedImage !== null} onOpenChange={(open) => !open && closeImageViewer()}>
         <DialogContent 
           className="max-w-[95vw] w-full h-[90vh] p-0 border-none bg-transparent"
@@ -193,17 +232,9 @@ export default function Gallery({ title, images, aspectRatio }: GalleryProps) {
         >
           <div className="relative w-full h-full flex items-center justify-center">
             {selectedImage !== null && (
-              <img
-                src={images[selectedImage].url}
-                alt={images[selectedImage].alt}
-                className={cn(
-                  "animate-fade-in",
-                  // For panoramic images, ensure they fit width-wise
-                  aspectRatio.includes("aspect-[8192/3262]") 
-                    ? "max-w-full h-auto object-contain" 
-                    : "max-h-full max-w-full object-contain"
-                )}
-              />
+              <div className="animate-fade-in w-full h-full flex items-center justify-center">
+                {renderMedia(images[selectedImage].url, images[selectedImage].alt, selectedImage, false)}
+              </div>
             )}
             
             <button 

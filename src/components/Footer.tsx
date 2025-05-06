@@ -1,29 +1,37 @@
 
-import { useEffect, useState } from "react";
-import { cn } from "@/lib/utils";
+import Logo from "./Logo";
 
 export default function Footer() {
-  const [year, setYear] = useState("");
-  
-  useEffect(() => {
-    setYear(new Date().getFullYear().toString());
-  }, []);
-
   return (
-    <footer className="py-12 bg-drone-black border-t border-white/5">
+    <footer className="bg-drone-black py-12">
       <div className="container mx-auto px-4">
-        <div className="flex flex-col md:flex-row justify-between items-center">
-          <div className="mb-6 md:mb-0">
-            <div className="text-xl font-light tracking-widest text-white/80">
-              FRANCO LONCARICA
-            </div>
-            <div className="mt-2 text-sm text-white/40">
-              Capturando el mundo desde perspectivas únicas
-            </div>
+        <div className="flex flex-col md:flex-row justify-between items-center gap-8">
+          {/* Logo and copyright */}
+          <div className="flex flex-col items-center md:items-start gap-4">
+            <Logo size="md" />
+            <p className="text-white/50 text-sm">© {new Date().getFullYear()} Franco Loncarica. Todos los derechos reservados.</p>
           </div>
           
-          <div className="text-sm text-white/40">
-            &copy; {year} Franco Loncarica. Todos los derechos reservados.
+          {/* Contact section */}
+          <div className="text-center md:text-right">
+            <h3 className="text-xl font-light mb-4">Contactanos</h3>
+            <div className="flex flex-col gap-2">
+              <a 
+                href="mailto:info@francoloncarica.com" 
+                className="text-white/70 hover:text-white transition-colors"
+              >
+                info@francoloncarica.com
+              </a>
+              
+              <a 
+                href="https://www.instagram.com/francoloncarica/" 
+                target="_blank" 
+                rel="noopener noreferrer"
+                className="text-white/70 hover:text-white transition-colors"
+              >
+                Instagram: @francoloncarica
+              </a>
+            </div>
           </div>
         </div>
       </div>

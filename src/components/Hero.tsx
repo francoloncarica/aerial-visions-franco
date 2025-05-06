@@ -1,5 +1,6 @@
 
 import { useState, useEffect } from "react";
+import Logo from "./Logo";
 
 export default function Hero() {
   const [loaded, setLoaded] = useState(false);
@@ -38,7 +39,7 @@ export default function Hero() {
               <div 
                 key={`v-${i}`} 
                 className="h-full w-px bg-white/30 transform translate-x-full animate-pulse"
-                style={{ animationDelay: `${i * 0.2}s` }}
+                style={{ animationDuration: `${8 + i * 0.5}s`, animationDelay: `${i * 0.2}s` }}
               ></div>
             ))}
           </div>
@@ -47,19 +48,22 @@ export default function Hero() {
               <div 
                 key={`h-${i}`} 
                 className="w-full h-px bg-white/30 transform translate-y-full animate-pulse"
-                style={{ animationDelay: `${i * 0.2}s` }}
+                style={{ animationDuration: `${7 + i * 0.5}s`, animationDelay: `${i * 0.2}s` }}
               ></div>
             ))}
           </div>
           
           {/* Enhanced floating elements with more dynamic animations */}
-          <div className="absolute top-1/4 left-1/4 w-32 h-32 rounded-full border border-white/20 opacity-50 animate-float-slow"></div>
-          <div className="absolute bottom-1/3 right-1/5 w-48 h-48 rounded-full border border-white/10 opacity-30 animate-float-reverse"></div>
-          <div className="absolute top-1/3 right-1/4 w-24 h-24 rounded-full border border-white/30 opacity-40 animate-pulse"></div>
+          <div className="absolute top-1/4 left-1/4 w-32 h-32 rounded-full border border-white/20 opacity-50 animate-float-slow" 
+               style={{ animationDuration: '15s' }}></div>
+          <div className="absolute bottom-1/3 right-1/5 w-48 h-48 rounded-full border border-white/10 opacity-30 animate-float-reverse"
+               style={{ animationDuration: '20s' }}></div>
+          <div className="absolute top-1/3 right-1/4 w-24 h-24 rounded-full border border-white/30 opacity-40 animate-pulse"
+               style={{ animationDuration: '12s' }}></div>
           
           {/* Additional animated elements */}
-          <div className="absolute top-2/3 left-1/3 w-16 h-16 rounded-full bg-white/5 animate-ping" style={{ animationDuration: '4s' }}></div>
-          <div className="absolute bottom-1/4 right-1/3 w-20 h-20 rounded-full border border-white/15 animate-float-slow" style={{ animationDelay: '2s' }}></div>
+          <div className="absolute top-2/3 left-1/3 w-16 h-16 rounded-full bg-white/5 animate-ping" style={{ animationDuration: '8s' }}></div>
+          <div className="absolute bottom-1/4 right-1/3 w-20 h-20 rounded-full border border-white/15 animate-float-slow" style={{ animationDuration: '18s', animationDelay: '2s' }}></div>
           
           {/* Drone paths with enhanced animation */}
           <div className="absolute inset-0">
@@ -70,6 +74,7 @@ export default function Hero() {
                 strokeWidth="1"
                 fill="none"
                 className="path-animation"
+                style={{ animationDuration: '25s' }}
               />
               <path
                 d="M100,50 Q300,200 500,100 T900,200"
@@ -77,6 +82,7 @@ export default function Hero() {
                 strokeWidth="1"
                 fill="none"
                 className="path-animation-reverse"
+                style={{ animationDuration: '32s' }}
               />
               <path
                 d="M50,200 Q150,100 300,250 T600,150"
@@ -84,23 +90,27 @@ export default function Hero() {
                 strokeWidth="1"
                 fill="none"
                 className="path-animation"
-                style={{ animationDuration: '35s' }}
+                style={{ animationDuration: '28s' }}
               />
             </svg>
             
-            {/* Animated drone points */}
+            {/* Animated drone points with different timings */}
             <div className="absolute h-2 w-2 bg-white rounded-full left-1/4 top-1/4 animate-ping" style={{ animationDuration: '4s' }}></div>
-            <div className="absolute h-2 w-2 bg-white rounded-full right-1/3 bottom-1/3 animate-ping" style={{ animationDuration: '5s', animationDelay: '1s' }}></div>
+            <div className="absolute h-3 w-3 bg-white rounded-full right-1/3 bottom-1/3 animate-ping" style={{ animationDuration: '5s', animationDelay: '1s' }}></div>
             <div className="absolute h-2 w-2 bg-white rounded-full left-2/3 top-1/2 animate-ping" style={{ animationDuration: '6s', animationDelay: '2s' }}></div>
+            
+            {/* New animated elements */}
+            <div className="absolute top-1/2 left-1/2 w-64 h-64 rounded-full border border-white/5 animate-spin" style={{ animationDuration: '40s' }}></div>
+            <div className="absolute top-1/2 left-1/2 w-80 h-80 rounded-full border border-white/5 animate-spin" style={{ animationDuration: '50s', animationDirection: 'reverse' }}></div>
           </div>
         </div>
       </div>
 
       {/* Content */}
       <div className={`relative z-20 text-center px-4 transition-all duration-1000 transform ${loaded ? 'translate-y-0 opacity-100' : 'translate-y-10 opacity-0'}`}>
-        <h1 className="text-5xl md:text-7xl font-light tracking-widest text-white mb-6 text-shadow">
-          FRANCO LONCARICA
-        </h1>
+        <div className="mb-6 flex justify-center">
+          <Logo size="lg" />
+        </div>
         <div className="w-24 h-px bg-white mx-auto mb-6 transition-all duration-1000 delay-300 transform" style={{ width: loaded ? '6rem' : '0' }}></div>
         <p className="text-lg md:text-xl font-light text-white/80 max-w-2xl mx-auto mb-10 transition-all duration-1000 delay-500 transform" style={{ opacity: loaded ? 1 : 0 }}>
           Capturando el mundo desde perspectivas únicas
