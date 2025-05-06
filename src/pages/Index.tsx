@@ -15,7 +15,7 @@ const Index = () => {
 
   useEffect(() => {
     // Set the document title
-    document.title = "Aerial Portfolio | Fotografía y Video con Drones";
+    document.title = "F.L Portfolio | Fotografía y Video con Drones";
     
     // Loading animation with progress
     const totalTime = 2000; // 2 seconds

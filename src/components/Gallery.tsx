@@ -16,6 +16,7 @@ export default function Gallery({ title, images, aspectRatio, mediaType = "image
   const [currentIndex, setCurrentIndex] = useState(0);
   const [isAnimating, setIsAnimating] = useState(false);
   const [selectedImage, setSelectedImage] = useState<number | null>(null);
+  const [isHovering, setIsHovering] = useState<number | null>(null);
   const galleryRef = useRef<HTMLDivElement>(null);
   
   const { ref, inView } = useInView({
@@ -107,14 +108,22 @@ export default function Gallery({ title, images, aspectRatio, mediaType = "image
           src={url}
           title={alt}
           className="w-full h-full object-cover transition-all duration-700 
-                   filter grayscale group-hover:grayscale-0"
+                   filter hover:grayscale-0"
           muted
           loop
           playsInline
-          autoPlay={!inGallery}
+          autoPlay={!inGallery || isHovering === index}
           controls={!inGallery}
-          onMouseOver={(e) => e.currentTarget.play()}
-          onMouseOut={(e) => inGallery && e.currentTarget.pause()}
+          onMouseOver={(e) => {
+            e.currentTarget.play();
+            setIsHovering(index);
+          }}
+          onMouseOut={(e) => {
+            if (inGallery) {
+              e.currentTarget.pause();
+              setIsHovering(null);
+            }
+          }}
         />
       );
     }
@@ -124,8 +133,10 @@ export default function Gallery({ title, images, aspectRatio, mediaType = "image
         src={url} 
         alt={alt}
         loading={inGallery ? "lazy" : "eager"}
-        className="w-full h-full object-cover transition-all duration-700 
-                 filter grayscale group-hover:grayscale-0 group-hover:scale-105"
+        className={cn(
+          "w-full h-full object-cover transition-all duration-700",
+          inGallery ? "filter grayscale hover:grayscale-0 hover:scale-105" : "grayscale-0 scale-100"
+        )}
       />
     );
   };

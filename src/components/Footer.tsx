@@ -10,7 +10,7 @@ export default function Footer() {
           {/* Logo and copyright */}
           <div className="flex flex-col items-center md:items-start gap-4">
             <Logo size="md" />
-            <p className="text-white/50 text-sm">© {new Date().getFullYear()} Aerial Portfolio. Todos los derechos reservados.</p>
+            <p className="text-white/50 text-sm">© {new Date().getFullYear()} F.L Portfolio. Todos los derechos reservados.</p>
           </div>
           
           {/* Contact section */}
@@ -18,20 +18,20 @@ export default function Footer() {
             <h3 className="text-xl font-light mb-4">Contáctanos</h3>
             <div className="flex flex-col gap-2">
               <a 
-                href="mailto:info@francoloncarica.com" 
+                href="mailto:info@flportfolio.com" 
                 className="text-white/70 hover:text-white transition-colors"
               >
-                info@francoloncarica.com
+                info@flportfolio.com
               </a>
               
               <a 
-                href="https://www.instagram.com/francoloncarica/" 
+                href="https://www.instagram.com/" 
                 target="_blank" 
                 rel="noopener noreferrer"
                 className="flex items-center justify-center md:justify-end text-white/70 hover:text-white transition-colors gap-2"
               >
                 <Instagram size={18} />
-                <span>@francoloncarica</span>
+                <span>@fl.portfolio</span>
               </a>
             </div>
           </div>
