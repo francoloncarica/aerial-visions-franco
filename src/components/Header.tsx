@@ -46,8 +46,11 @@ export default function Header() {
       }`}
     >
       <div className="container mx-auto px-4 flex justify-between items-center">
-        <a href="#" className="hover:opacity-80 transition-opacity">
+        <a href="#" className="hover:opacity-80 transition-opacity flex items-center">
           <Logo size={isScrolled ? "sm" : "md"} />
+          <span className="ml-4 text-white font-light text-xl md:text-2xl tracking-wide hidden md:block">
+            Franco Loncarica
+          </span>
         </a>
         
         <div className="flex items-center gap-4">
@@ -63,7 +66,7 @@ export default function Header() {
               <Instagram size={20} />
             </a>
             <a 
-              href="mailto:info@francoloncarica.com"
+              href="mailto:francoloncarica@hotmail.com"
               className="text-white/70 hover:text-white transition-all"
               aria-label="Email"
             >
@@ -103,7 +106,7 @@ export default function Header() {
             </a>
           </nav>
           
-          {/* Contact button - new addition */}
+          {/* Contact button */}
           <a
             href="#about"
             className="hidden md:flex px-4 py-2 border border-white/30 hover:bg-white/10 text-white text-sm transition-all duration-300 transform hover:-translate-y-1"

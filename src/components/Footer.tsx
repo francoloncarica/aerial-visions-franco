@@ -18,20 +18,20 @@ export default function Footer() {
             <h3 className="text-xl font-light mb-4">Contáctanos</h3>
             <div className="flex flex-col gap-2">
               <a 
-                href="mailto:info@flportfolio.com" 
+                href="mailto:francoloncarica@hotmail.com" 
                 className="text-white/70 hover:text-white transition-colors"
               >
-                info@flportfolio.com
+                francoloncarica@hotmail.com
               </a>
               
               <a 
-                href="https://www.instagram.com/" 
+                href="https://www.instagram.com/francoloncarica/" 
                 target="_blank" 
                 rel="noopener noreferrer"
                 className="flex items-center justify-center md:justify-end text-white/70 hover:text-white transition-colors gap-2"
               >
                 <Instagram size={18} />
-                <span>@fl.portfolio</span>
+                <span>@francoloncarica</span>
               </a>
             </div>
           </div>

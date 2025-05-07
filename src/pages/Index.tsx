@@ -1,4 +1,3 @@
-
 import { useEffect, useState } from "react";
 import Header from "@/components/Header";
 import Hero from "@/components/Hero";
@@ -15,7 +14,7 @@ const Index = () => {
 
   useEffect(() => {
     // Set the document title
-    document.title = "F.L Portfolio | Fotografía y Video con Drones";
+    document.title = "Franco Loncarica | Fotografía y Video con Drones";
     
     // Loading animation with progress
     const totalTime = 2000; // 2 seconds
