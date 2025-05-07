@@ -23,7 +23,7 @@ export default function AboutUs() {
           "mb-12 transition-all duration-700 transform",
           inView ? "translate-y-0 opacity-100" : "translate-y-10 opacity-0"
         )}>
-          <h2 className="text-3xl md:text-4xl font-light tracking-wider mb-4">Sobre mí</h2>
+          <h2 className="text-3xl md:text-4xl font-light tracking-wider mb-4">Portfolio</h2>
           <div className="w-16 h-px bg-white/40"></div>
         </div>
         
@@ -34,13 +34,13 @@ export default function AboutUs() {
         )}>
           <div className="space-y-6">
             <p className="text-lg text-white/80">
-              Fotógrafo y videógrafo especializado en capturas aéreas con drones. 
-              Me apasiona capturar la belleza del mundo desde ángulos únicos y perspectivas que solo 
+              Fotografía y videografía especializada en capturas aéreas con drones. 
+              Captando la belleza del mundo desde ángulos únicos y perspectivas que solo 
               la tecnología de drones nos permite alcanzar.
             </p>
             <p className="text-lg text-white/80">
               Con años de experiencia en el sector inmobiliario, turístico y publicitario, 
-              ofrezco servicios profesionales que destacan por su calidad técnica y visión artística.
+              ofreciendo servicios profesionales que destacan por su calidad técnica y visión artística.
             </p>
             
             <div className="pt-6 space-y-6">
@@ -56,7 +56,7 @@ export default function AboutUs() {
               <h3 className="text-2xl font-light mb-4 pt-4">Contáctame</h3>
               <div className="flex flex-col md:flex-row gap-4">
                 <a 
-                  href="mailto:info@francoloncarica.com" 
+                  href="mailto:francoloncarica@hotmail.com" 
                   className="px-6 py-3 bg-white/10 hover:bg-white/20 transition-all rounded text-center flex items-center justify-center gap-2"
                 >
                   <Mail size={18} />

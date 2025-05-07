@@ -48,9 +48,6 @@ export default function Header() {
       <div className="container mx-auto px-4 flex justify-between items-center">
         <a href="#" className="hover:opacity-80 transition-opacity flex items-center">
           <Logo size={isScrolled ? "sm" : "md"} />
-          <span className="ml-4 text-white font-light text-xl md:text-2xl tracking-wide hidden md:block">
-            Franco Loncarica
-          </span>
         </a>
         
         <div className="flex items-center gap-4">
@@ -102,7 +99,7 @@ export default function Header() {
               href="#about"
               className="text-white/80 hover:text-white transition-colors text-sm tracking-wider"
             >
-              Sobre Mí
+              Portfolio
             </a>
           </nav>
           
