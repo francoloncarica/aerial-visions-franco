@@ -1,5 +1,4 @@
-
-import { useEffect, useState } from "react";
+import { useEffect, useState, useRef } from "react";
 import Header from "@/components/Header";
 import Hero from "@/components/Hero";
 import Gallery from "@/components/Gallery";
@@ -12,57 +11,76 @@ import Logo from "@/components/Logo";
 const Index = () => {
   const [loading, setLoading] = useState(true);
   const [progress, setProgress] = useState(0);
+  const audioRef = useRef<HTMLAudioElement | null>(null);
 
   useEffect(() => {
     // Set the document title
     document.title = "F.L | Fotografía y Video con Drones";
-    
+
+    // Initialize and play background music
+    const audio = new Audio("/cancion.mp4");
+    audio.volume = 0.4;
+    audio.loop = true;
+    audioRef.current = audio;
+
+    const playPromise = audio.play();
+    if (playPromise !== undefined) {
+      playPromise.catch((error) => {
+        console.error("Error playing audio during loading:", error);
+      });
+    }
+
     // Loading animation with progress
     const totalTime = 2000; // 2 seconds
     const updateInterval = 20; // Update every 20ms
     const increments = totalTime / updateInterval;
-    
+
     let counter = 0;
     const timer = setInterval(() => {
       counter++;
       setProgress(Math.min(100, Math.floor((counter / increments) * 100)));
-      
+
       if (counter >= increments) {
         clearInterval(timer);
         setLoading(false);
+        audio.pause(); // Stop music after loading
       }
     }, updateInterval);
-    
+
     // Preload key images
     const preloadImages = () => {
       // Get first image from each category for preloading
-      const imagesToPreload = photoCategories.map(category => category.images[0]?.url).filter(Boolean);
-      
-      imagesToPreload.forEach(src => {
+      const imagesToPreload = photoCategories.map(
+        (category) => category.images[0]?.url
+      ).filter(Boolean);
+
+      imagesToPreload.forEach((src) => {
         const img = new Image();
         img.src = src;
       });
     };
-    
+
     preloadImages();
-    
+
     // Smooth scroll functionality
-    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
-      anchor.addEventListener('click', function (e) {
+    document.querySelectorAll('a[href^="#"]').forEach((anchor) => {
+      anchor.addEventListener("click", function (e) {
         e.preventDefault();
-        const target = document.querySelector(this.getAttribute('href') || "");
+        const target = document.querySelector(this.getAttribute("href") || "");
         if (target) {
           target.scrollIntoView({
-            behavior: 'smooth'
+            behavior: "smooth",
           });
         }
       });
     });
-    
+
     return () => {
       clearInterval(timer);
-      document.querySelectorAll('a[href^="#"]').forEach(anchor => {
-        anchor.removeEventListener('click', function (e) {
+      audio.pause();
+      audio.currentTime = 0;
+      document.querySelectorAll('a[href^="#"]').forEach((anchor) => {
+        anchor.removeEventListener("click", function (e) {
           e.preventDefault();
         });
       });
@@ -76,19 +94,21 @@ const Index = () => {
           <div className="mb-8">
             <Logo size="lg" />
           </div>
-          
+
           <div className="w-64 h-1 bg-white/20 rounded-full mb-6 overflow-hidden">
-            <div 
+            <div
               className="h-full bg-white rounded-full transition-all duration-300 ease-out"
               style={{ width: `${progress}%` }}
             />
           </div>
-          
+
           <div className="flex items-center justify-center mb-2">
             <Loader size={24} className="text-white animate-spin mr-2" />
-            <p className="text-white/80 font-light">Cargando experiencia visual...</p>
+            <p className="text-white/80 font-light">
+              Cargando experiencia visual...
+            </p>
           </div>
-          
+
           <p className="text-white/50 text-sm">{progress}%</p>
         </div>
       </div>
@@ -99,10 +119,10 @@ const Index = () => {
     <div className="min-h-screen bg-drone-black text-white font-['Montserrat',sans-serif]">
       <Header />
       <Hero />
-      
+
       <main>
         {photoCategories.map((category) => (
-          <Gallery 
+          <Gallery
             key={category.id}
             title={category.title}
             images={category.images}
@@ -112,10 +132,10 @@ const Index = () => {
         ))}
         <AboutUs />
       </main>
-      
+
       <Footer />
     </div>
   );
-}
+};
 
 export default Index;
