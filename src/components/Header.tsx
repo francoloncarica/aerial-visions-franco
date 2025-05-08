@@ -10,9 +10,10 @@ export default function Header() {
   const [audioLoaded, setAudioLoaded] = useState(false);
   const audioRef = useRef<HTMLAudioElement | null>(null);
   
-  // Initialize audio element
+  // Initialize audio element with correct path
   useEffect(() => {
-    const audio = new Audio("/ambient-chillout.mp3");
+    // Make sure we're using the correct path for the audio file
+    const audio = new Audio("ambient-chillout.mp3");
     audioRef.current = audio;
     
     // Set audio volume
@@ -22,12 +23,13 @@ export default function Header() {
     // Handle audio loading events
     audio.addEventListener('canplaythrough', () => {
       setAudioLoaded(true);
+      console.log("Audio loaded successfully");
     });
     
     audio.addEventListener('error', (e) => {
       console.error("Audio error:", e);
       toast.error("No se pudo cargar la música", {
-        description: "Intenta nuevamente más tarde"
+        description: "Verifica que el archivo exista en la carpeta public"
       });
     });
     
@@ -54,11 +56,12 @@ export default function Header() {
         playPromise
           .then(() => {
             setIsPlaying(true);
+            console.log("Audio playing successfully");
           })
           .catch(error => {
             console.error("Error playing audio:", error);
             toast.error("No se pudo reproducir la música", {
-              description: "Puede que el navegador esté bloqueando la reproducción automática"
+              description: "Verifica que el archivo existe en la carpeta public"
             });
           });
       }
