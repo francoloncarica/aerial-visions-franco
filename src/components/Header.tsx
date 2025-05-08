@@ -1,32 +1,68 @@
 
-import { useState, useEffect } from "react";
+import { useState, useEffect, useRef } from "react";
 import { Play, Pause, Instagram, Mail } from "lucide-react";
 import Logo from "./Logo";
+import { toast } from "sonner";
 
 export default function Header() {
   const [isScrolled, setIsScrolled] = useState(false);
   const [isPlaying, setIsPlaying] = useState(false);
-  const [audio] = useState(new Audio("/ambient-chillout.mp3"));
+  const [audioLoaded, setAudioLoaded] = useState(false);
+  const audioRef = useRef<HTMLAudioElement | null>(null);
   
-  // Set audio volume
+  // Initialize audio element
   useEffect(() => {
+    const audio = new Audio("/ambient-chillout.mp3");
+    audioRef.current = audio;
+    
+    // Set audio volume
     audio.volume = 0.4; // Set volume to 40%
     audio.loop = true;
+    
+    // Handle audio loading events
+    audio.addEventListener('canplaythrough', () => {
+      setAudioLoaded(true);
+    });
+    
+    audio.addEventListener('error', (e) => {
+      console.error("Audio error:", e);
+      toast.error("No se pudo cargar la música", {
+        description: "Intenta nuevamente más tarde"
+      });
+    });
     
     return () => {
       audio.pause();
       audio.currentTime = 0;
+      audio.removeEventListener('canplaythrough', () => setAudioLoaded(true));
+      audio.removeEventListener('error', () => {});
     };
-  }, [audio]);
+  }, []);
   
   // Toggle audio play/pause
   const toggleAudio = () => {
+    if (!audioRef.current) return;
+    
     if (isPlaying) {
-      audio.pause();
+      audioRef.current.pause();
+      setIsPlaying(false);
     } else {
-      audio.play();
+      // Try to play and handle any promise rejection
+      const playPromise = audioRef.current.play();
+      
+      if (playPromise !== undefined) {
+        playPromise
+          .then(() => {
+            setIsPlaying(true);
+          })
+          .catch(error => {
+            console.error("Error playing audio:", error);
+            toast.error("No se pudo reproducir la música", {
+              description: "Puede que el navegador esté bloqueando la reproducción automática"
+            });
+          });
+      }
     }
-    setIsPlaying(!isPlaying);
   };
   
   // Header scroll effect
