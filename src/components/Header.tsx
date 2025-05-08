@@ -9,6 +9,8 @@ export default function Header() {
   const [audioLoaded, setAudioLoaded] = useState(false);
   const audioRef = useRef<HTMLAudioElement | null>(null);
   
+
+  
   // Initialize audio element with correct path
   useEffect(() => {
     const audio = new Audio();
