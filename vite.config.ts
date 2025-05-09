@@ -4,7 +4,7 @@ import path from "path";
 import { componentTagger } from "lovable-tagger";
 
 export default defineConfig(({ mode }) => ({
-  base: "./", // correcto para GitHub Pages (rutas relativas)
+  base: "./", // Use relative paths for GitHub Pages
   server: {
     host: "::",
     port: 8080,
@@ -19,7 +19,7 @@ export default defineConfig(({ mode }) => ({
     },
   },
   build: {
-    outDir: "docs", // ← **Agrega esta línea**
-    assetsDir: "assets", // Asegura que los archivos estáticos se coloquen en "docs/assets"
+    outDir: "docs", // Ensure the build output is in the "docs" folder
+    assetsDir: "assets", // Place static files in "assets"
   }, // ← Cierra correctamente el objeto build
 })); // ← Cierra correctamente el objeto de configuración y la función
