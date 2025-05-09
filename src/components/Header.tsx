@@ -1,3 +1,4 @@
+
 import { useState, useEffect, useRef } from "react";
 import { Play, Pause, Instagram, Mail } from "lucide-react";
 import Logo from "./Logo";
@@ -9,12 +10,10 @@ export default function Header() {
   const [audioLoaded, setAudioLoaded] = useState(false);
   const audioRef = useRef<HTMLAudioElement | null>(null);
   
-
-  
   // Initialize audio element with correct path
   useEffect(() => {
     const audio = new Audio();
-    audio.src = "/cancion.mp4"; // Updated to use 'cancion.mp4'
+    audio.src = "/ambient-chillout.mp3"; // Use the ambient-chillout.mp3 file
     audioRef.current = audio;
 
     // Set audio volume and loop
@@ -24,13 +23,13 @@ export default function Header() {
     // Handle audio loading events
     audio.addEventListener("canplaythrough", () => {
       setAudioLoaded(true);
-      console.log("Audio loaded successfully");
+      console.log("Audio loaded successfully in header");
     });
 
     audio.addEventListener("error", (e) => {
       console.error("Audio error:", e);
       toast.error("No se pudo cargar la música", {
-        description: "Verifica que el archivo 'cancion.mp4' existe en la carpeta 'public' y es compatible con el navegador."
+        description: "Verifica que el archivo 'ambient-chillout.mp3' existe en la carpeta 'public' y es compatible con el navegador."
       });
     });
 
@@ -57,12 +56,12 @@ export default function Header() {
         playPromise
           .then(() => {
             setIsPlaying(true);
-            console.log("Audio playing successfully");
+            console.log("Audio playing successfully from header");
           })
           .catch(error => {
             console.error("Error playing audio:", error);
             toast.error("No se pudo reproducir la música", {
-              description: "Verifica que el archivo existe en la carpeta public"
+              description: "Es posible que necesites interactuar con la página primero o verificar que el archivo existe."
             });
           });
       }
