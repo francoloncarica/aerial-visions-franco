@@ -13,7 +13,7 @@ export default function Header() {
   // Initialize audio element with correct path
   useEffect(() => {
     const audio = new Audio();
-    audio.src = "/ambient-chillout.mp3"; // Changed extension from mp4 to mp3
+    audio.src = "/cancion.mp4"; // Changed extension from mp4 to mp3
     audioRef.current = audio;
 
     // Set audio volume and loop
