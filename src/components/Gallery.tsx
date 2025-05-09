@@ -3,7 +3,8 @@ import { useState, useRef } from "react";
 import { cn } from "@/lib/utils";
 import { ChevronLeft, ChevronRight, X, Video, Image } from "lucide-react";
 import { useInView } from "@/hooks/useInView";
-import { Dialog, DialogContent } from "@/components/ui/dialog";
+import { Dialog, DialogContent, DialogTitle } from "@/components/ui/dialog";
+import { VisuallyHidden } from "@radix-ui/react-visually-hidden";
 
 interface GalleryProps {
   title: string;
@@ -115,7 +116,7 @@ export default function Gallery({ title, images, aspectRatio, mediaType = "image
           autoPlay={!inGallery || isHovering === index}
           controls={!inGallery}
           onMouseOver={(e) => {
-            e.currentTarget.play();
+            e.currentTarget.play().catch(err => console.log("Video play error:", err));
             setIsHovering(index);
           }}
           onMouseOut={(e) => {
@@ -240,7 +241,14 @@ export default function Gallery({ title, images, aspectRatio, mediaType = "image
         <DialogContent 
           className="max-w-[95vw] w-full h-[90vh] p-0 border-none bg-transparent"
           onKeyDown={handleKeyDown}
+          aria-describedby="media-viewer-desc"
         >
+          {/* Add accessible title and description */}
+          <DialogTitle>
+            <VisuallyHidden>{selectedImage !== null ? images[selectedImage]?.alt || 'Media viewer' : 'Media viewer'}</VisuallyHidden>
+          </DialogTitle>
+          <div id="media-viewer-desc" className="sr-only">Gallery media viewer showing full-size media content</div>
+          
           <div className="relative w-full h-full flex items-center justify-center">
             {selectedImage !== null && (
               <div className="animate-fade-in w-full h-full flex items-center justify-center">

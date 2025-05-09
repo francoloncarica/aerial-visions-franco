@@ -1,3 +1,4 @@
+
 import { useState, useEffect, useRef } from "react";
 import { Play, Pause, Instagram, Mail } from "lucide-react";
 import Logo from "./Logo";
@@ -8,13 +9,11 @@ export default function Header() {
   const [isPlaying, setIsPlaying] = useState(false);
   const [audioLoaded, setAudioLoaded] = useState(false);
   const audioRef = useRef<HTMLAudioElement | null>(null);
-  
 
-  
   // Initialize audio element with correct path
   useEffect(() => {
     const audio = new Audio();
-    audio.src = "/cancion.mp4"; // Updated to use 'cancion.mp4'
+    audio.src = "/ambient-chillout.mp3"; // Changed extension from mp4 to mp3
     audioRef.current = audio;
 
     // Set audio volume and loop
@@ -30,7 +29,7 @@ export default function Header() {
     audio.addEventListener("error", (e) => {
       console.error("Audio error:", e);
       toast.error("No se pudo cargar la música", {
-        description: "Verifica que el archivo 'cancion.mp4' existe en la carpeta 'public' y es compatible con el navegador."
+        description: "Verifica que el archivo 'ambient-chillout.mp3' existe en la carpeta 'public'."
       });
     });
 
@@ -77,6 +76,22 @@ export default function Header() {
     
     window.addEventListener("scroll", handleScroll);
     return () => window.removeEventListener("scroll", handleScroll);
+  }, []);
+  
+  // Check if audio is already playing from Index.tsx and sync state
+  useEffect(() => {
+    const checkAudioPlaying = () => {
+      // If loading is complete and audio is playing from Index,
+      // we should reflect that in our local state
+      if (audioRef.current && !audioRef.current.paused) {
+        setIsPlaying(true);
+      }
+    };
+
+    // Check periodically in case audio was started elsewhere
+    const interval = setInterval(checkAudioPlaying, 1000);
+    
+    return () => clearInterval(interval);
   }, []);
   
   return (
