@@ -8,7 +8,6 @@ import Footer from "@/components/Footer";
 import { photoCategories } from "@/data/photos";
 import { Loader } from "lucide-react";
 import Logo from "@/components/Logo";
-import { toast } from "sonner";
 
 const Index = () => {
   const [loading, setLoading] = useState(true);
@@ -21,14 +20,14 @@ const Index = () => {
     document.title = "F.L | Fotografía y Video con Drones";
 
     // Initialize and attempt to play background music
-    const audio = new Audio("/ambient-chillout.mp3"); // Changed extension from mp4 to mp3
+    const audio = new Audio("/cancion.mp4"); // Use cancion.mp4 directly
     audio.volume = 0.4;
     audio.loop = true;
     audioRef.current = audio;
 
     const playAudio = async () => {
       try {
-        await audio.load(); // Add this to ensure file is loaded before playing
+        await audio.load(); // Ensure file is loaded before playing
         const playPromise = audio.play();
         
         if (playPromise !== undefined) {
@@ -36,14 +35,9 @@ const Index = () => {
           console.log("Audio playing successfully during loading");
         }
       } catch (error) {
-        console.warn(
-          "Autoplay failed. User interaction required to play audio:",
-          error
-        );
+        console.warn("Autoplay failed. User interaction required to play audio:", error);
         setAudioFailed(true); // Show fallback button
-        toast.error("No se pudo reproducir la música automáticamente", {
-          description: "Haz clic en el botón para activar la música"
-        });
+        // Don't show toast to avoid alerts
       }
     };
 
@@ -109,12 +103,9 @@ const Index = () => {
     if (audioRef.current) {
       audioRef.current.play().then(() => {
         setAudioFailed(false); // Hide fallback button
-        toast.success("Música activada");
       }).catch(error => {
         console.error("Error playing audio:", error);
-        toast.error("No se pudo reproducir la música", {
-          description: "Verifica que el archivo 'ambient-chillout.mp3' existe"
-        });
+        // Don't show toast
       });
     }
   };

@@ -1,4 +1,3 @@
-
 import { useState, useRef } from "react";
 import { cn } from "@/lib/utils";
 import { ChevronLeft, ChevronRight, X, Video, Image } from "lucide-react";
@@ -241,9 +240,7 @@ export default function Gallery({ title, images, aspectRatio, mediaType = "image
         <DialogContent 
           className="max-w-[95vw] w-full h-[90vh] p-0 border-none bg-transparent"
           onKeyDown={handleKeyDown}
-          aria-describedby="media-viewer-desc"
         >
-          {/* Add accessible title and description */}
           <DialogTitle>
             <VisuallyHidden>{selectedImage !== null ? images[selectedImage]?.alt || 'Media viewer' : 'Media viewer'}</VisuallyHidden>
           </DialogTitle>

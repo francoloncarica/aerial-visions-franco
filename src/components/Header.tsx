@@ -1,4 +1,3 @@
-
 import { useState, useEffect, useRef } from "react";
 import { Play, Pause, Instagram, Mail } from "lucide-react";
 import Logo from "./Logo";
@@ -13,7 +12,7 @@ export default function Header() {
   // Initialize audio element with correct path
   useEffect(() => {
     const audio = new Audio();
-    audio.src = "/cancion.mp4"; // Changed extension from mp4 to mp3
+    audio.src = "/cancion.mp4"; // Using cancion.mp4 directly
     audioRef.current = audio;
 
     // Set audio volume and loop
@@ -28,9 +27,7 @@ export default function Header() {
 
     audio.addEventListener("error", (e) => {
       console.error("Audio error:", e);
-      toast.error("No se pudo cargar la música", {
-        description: "Verifica que el archivo 'ambient-chillout.mp3' existe en la carpeta 'public'."
-      });
+      // Silent error - don't show toast to avoid distracting users
     });
 
     return () => {
@@ -60,9 +57,7 @@ export default function Header() {
           })
           .catch(error => {
             console.error("Error playing audio:", error);
-            toast.error("No se pudo reproducir la música", {
-              description: "Verifica que el archivo existe en la carpeta public"
-            });
+            // Silent error - don't show toast
           });
       }
     }
