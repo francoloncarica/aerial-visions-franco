@@ -20,5 +20,6 @@ export default defineConfig(({ mode }) => ({
   },
   build: {
     outDir: "docs", // ← **Agrega esta línea**
+    assetsDir: "assets", // Asegura que los archivos estáticos se coloquen en "docs/assets"
   }, // ← Cierra correctamente el objeto build
 })); // ← Cierra correctamente el objeto de configuración y la función
