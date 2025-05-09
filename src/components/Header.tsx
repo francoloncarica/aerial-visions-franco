@@ -1,3 +1,4 @@
+
 import { useState, useEffect, useRef } from "react";
 import { Play, Pause, Instagram, Mail } from "lucide-react";
 import Logo from "./Logo";
@@ -11,7 +12,7 @@ export default function Header() {
   // Initialize audio element with correct path
   useEffect(() => {
     const audio = new Audio();
-    audio.src = "./assets/cancion.mp4"; // Cambia la ruta para que sea relativa y funcione en GitHub Pages
+    audio.src = "./cancion.mp4"; // Ruta relativa para GitHub Pages
     audioRef.current = audio;
 
     // Set audio volume and loop
