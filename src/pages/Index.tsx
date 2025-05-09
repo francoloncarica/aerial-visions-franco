@@ -11,24 +11,33 @@ import Logo from "@/components/Logo";
 const Index = () => {
   const [loading, setLoading] = useState(true);
   const [progress, setProgress] = useState(0);
+  const [audioFailed, setAudioFailed] = useState(false);
   const audioRef = useRef<HTMLAudioElement | null>(null);
 
   useEffect(() => {
     // Set the document title
     document.title = "F.L | Fotografía y Video con Drones";
 
-    // Initialize and play background music
+    // Initialize and attempt to play background music
     const audio = new Audio("/cancion.mp4");
     audio.volume = 0.4;
     audio.loop = true;
     audioRef.current = audio;
 
-    const playPromise = audio.play();
-    if (playPromise !== undefined) {
-      playPromise.catch((error) => {
-        console.error("Error playing audio during loading:", error);
-      });
-    }
+    const playAudio = async () => {
+      try {
+        await audio.play();
+        console.log("Audio playing successfully during loading");
+      } catch (error) {
+        console.warn(
+          "Autoplay failed. User interaction required to play audio:",
+          error
+        );
+        setAudioFailed(true); // Show fallback button
+      }
+    };
+
+    playAudio();
 
     // Loading animation with progress
     const totalTime = 2000; // 2 seconds
@@ -43,7 +52,6 @@ const Index = () => {
       if (counter >= increments) {
         clearInterval(timer);
         setLoading(false);
-        audio.pause(); // Stop music after loading
       }
     }, updateInterval);
 
@@ -87,6 +95,14 @@ const Index = () => {
     };
   }, []);
 
+  const handlePlayAudio = () => {
+    if (audioRef.current) {
+      audioRef.current.play().then(() => {
+        setAudioFailed(false); // Hide fallback button
+      });
+    }
+  };
+
   if (loading) {
     return (
       <div className="fixed inset-0 bg-drone-black flex items-center justify-center z-50">
@@ -110,6 +126,15 @@ const Index = () => {
           </div>
 
           <p className="text-white/50 text-sm">{progress}%</p>
+
+          {audioFailed && (
+            <button
+              onClick={handlePlayAudio}
+              className="mt-4 px-4 py-2 bg-white text-black rounded hover:bg-gray-200 transition"
+            >
+              Activar Música
+            </button>
+          )}
         </div>
       </div>
     );
