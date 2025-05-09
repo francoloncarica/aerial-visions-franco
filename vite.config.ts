@@ -20,3 +20,5 @@ export default defineConfig(({ mode }) => ({
   },
   build: {
     outDir: "docs", // ← **Agrega esta línea**
+  }, // ← Cierra correctamente el objeto build
+})); // ← Cierra correctamente el objeto de configuración y la función
