@@ -4,6 +4,7 @@ import Logo from "./Logo";
 
 export default function Hero() {
   const [loaded, setLoaded] = useState(false);
+  const [videoError, setVideoError] = useState(false);
 
   useEffect(() => {
     const timer = setTimeout(() => {
@@ -12,6 +13,11 @@ export default function Hero() {
     
     return () => clearTimeout(timer);
   }, []);
+
+  const handleVideoError = () => {
+    console.log("Video failed to load");
+    setVideoError(true);
+  };
 
   return (
     <section className="relative h-screen flex items-center justify-center overflow-hidden">
@@ -22,9 +28,10 @@ export default function Hero() {
           loop
           muted
           playsInline
+          onError={handleVideoError}
           className="absolute inset-0 w-full h-full object-cover"
         >
-          <source src="/images/videos/video-3.mp4" type="video/mp4" />
+          <source src="./images/videos/video-3.mp4" type="video/mp4" />
           Your browser does not support the video tag.
         </video>
         <div className="absolute inset-0 bg-black/70"></div>

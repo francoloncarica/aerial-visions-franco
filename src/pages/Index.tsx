@@ -20,7 +20,7 @@ const Index = () => {
     document.title = "F.L | Fotografía y Video con Drones";
 
     // Initialize and attempt to play background music
-    const audio = new Audio("/cancion.mp4"); // Use cancion.mp4 directly
+    const audio = new Audio("./cancion.mp4"); // Ruta relativa para GitHub Pages
     audio.volume = 0.4;
     audio.loop = true;
     audioRef.current = audio;
@@ -37,7 +37,6 @@ const Index = () => {
       } catch (error) {
         console.warn("Autoplay failed. User interaction required to play audio:", error);
         setAudioFailed(true); // Show fallback button
-        // Don't show toast to avoid alerts
       }
     };
 
@@ -67,8 +66,11 @@ const Index = () => {
       ).filter(Boolean);
 
       imagesToPreload.forEach((src) => {
-        const img = new Image();
-        img.src = src;
+        if (src) {
+          const img = new Image();
+          // Asegúrate de que las rutas sean relativas
+          img.src = src.startsWith('/') ? `.${src}` : src;
+        }
       });
     };
 
@@ -105,7 +107,6 @@ const Index = () => {
         setAudioFailed(false); // Hide fallback button
       }).catch(error => {
         console.error("Error playing audio:", error);
-        // Don't show toast
       });
     }
   };
