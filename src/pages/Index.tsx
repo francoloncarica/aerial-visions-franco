@@ -7,7 +7,6 @@ import Footer from "@/components/Footer";
 import { photoCategories } from "@/data/photos";
 import { Loader } from "lucide-react";
 import Logo from "@/components/Logo";
-import { toast } from "sonner";
 
 const Index = () => {
   const [loading, setLoading] = useState(true);
@@ -19,26 +18,15 @@ const Index = () => {
     document.title = "F.L | Fotografía y Video con Drones";
 
     // Initialize and play background music
-    const audio = new Audio("/ambient-chillout.mp3");
+    const audio = new Audio("/cancion.mp4");
     audio.volume = 0.4;
     audio.loop = true;
     audioRef.current = audio;
-
-    // Add error handling for audio
-    audio.addEventListener("error", (e) => {
-      console.error("Error playing audio during loading:", e);
-      toast.error("No se pudo cargar la música de fondo", {
-        description: "Verifique que el archivo 'ambient-chillout.mp3' existe en la carpeta 'public'."
-      });
-    });
 
     const playPromise = audio.play();
     if (playPromise !== undefined) {
       playPromise.catch((error) => {
         console.error("Error playing audio during loading:", error);
-        toast.error("No se pudo reproducir la música automáticamente", {
-          description: "Puede iniciar la música manualmente con el botón de reproducción."
-        });
       });
     }
 
@@ -55,7 +43,7 @@ const Index = () => {
       if (counter >= increments) {
         clearInterval(timer);
         setLoading(false);
-        // Don't pause audio after loading - keep it playing
+        audio.pause(); // Stop music after loading
       }
     }, updateInterval);
 
@@ -89,10 +77,8 @@ const Index = () => {
 
     return () => {
       clearInterval(timer);
-      if (audioRef.current) {
-        audioRef.current.pause();
-        audioRef.current.currentTime = 0;
-      }
+      audio.pause();
+      audio.currentTime = 0;
       document.querySelectorAll('a[href^="#"]').forEach((anchor) => {
         anchor.removeEventListener("click", function (e) {
           e.preventDefault();
