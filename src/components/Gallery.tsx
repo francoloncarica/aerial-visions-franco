@@ -1,3 +1,4 @@
+
 import { useState, useRef } from "react";
 import { cn } from "@/lib/utils";
 import { ChevronLeft, ChevronRight, X, Video, Image } from "lucide-react";
@@ -114,16 +115,8 @@ export default function Gallery({ title, images, aspectRatio, mediaType = "image
           playsInline
           autoPlay={!inGallery || isHovering === index}
           controls={!inGallery}
-          onMouseOver={(e) => {
-            e.currentTarget.play().catch(err => console.log("Video play error:", err));
-            setIsHovering(index);
-          }}
-          onMouseOut={(e) => {
-            if (inGallery) {
-              e.currentTarget.pause();
-              setIsHovering(null);
-            }
-          }}
+          onMouseEnter={() => setIsHovering(index)}
+          onMouseLeave={() => setIsHovering(null)}
         />
       );
     }
