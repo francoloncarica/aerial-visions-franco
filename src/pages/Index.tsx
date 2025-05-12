@@ -20,10 +20,16 @@ const Index = () => {
     document.title = "F.L | Fotografía y Video con Drones";
 
     // Initialize and attempt to play background music
-    const audio = new Audio("./cancion.mp4"); // Ruta relativa para GitHub Pages
+    const audio = new Audio("./cancion.mp4"); // Ensure path is correct for both dev and production
     audio.volume = 0.4;
     audio.loop = true;
     audioRef.current = audio;
+
+    // Add error event listener to track audio loading issues
+    audio.addEventListener('error', (e) => {
+      console.error('Audio error:', e);
+      setAudioFailed(true);
+    });
 
     const playAudio = async () => {
       try {
@@ -68,7 +74,7 @@ const Index = () => {
       imagesToPreload.forEach((src) => {
         if (src) {
           const img = new Image();
-          // Asegúrate de que las rutas sean relativas
+          // Ensure paths are relative
           img.src = src.startsWith('/') ? `.${src}` : src;
         }
       });
