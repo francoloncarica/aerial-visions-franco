@@ -1,3 +1,4 @@
+
 import { defineConfig } from "vite";
 import react from "@vitejs/plugin-react-swc";
 import path from "path";
@@ -21,5 +22,5 @@ export default defineConfig(({ mode }) => ({
   build: {
     outDir: "docs", // Ensure the build output is in the "docs" folder
     assetsDir: "assets", // Place static files in "assets"
-  }, // ← Cierra correctamente el objeto build
-})); // ← Cierra correctamente el objeto de configuración y la función
+  },
+}));

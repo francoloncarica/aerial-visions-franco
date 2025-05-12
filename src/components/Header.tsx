@@ -1,4 +1,3 @@
-
 import { useState, useEffect, useRef } from "react";
 import { Play, Pause, Instagram, Mail } from "lucide-react";
 import Logo from "./Logo";

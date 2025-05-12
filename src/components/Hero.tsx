@@ -1,4 +1,3 @@
-
 import { useState, useEffect } from "react";
 import Logo from "./Logo";
 
@@ -32,7 +31,7 @@ export default function Hero() {
           className="absolute inset-0 w-full h-full object-cover"
         >
           <source src="./images/videos/video-3.mp4" type="video/mp4" />
-          Your browser does not support the video tag.
+          Tu navegador no soporta videos.
         </video>
         <div className="absolute inset-0 bg-black/70"></div>
       </div>
