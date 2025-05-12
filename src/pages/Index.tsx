@@ -20,7 +20,9 @@ const Index = () => {
     document.title = "F.L | Fotografía y Video con Drones";
 
     // Initialize and attempt to play background music
-    const audio = new Audio("./cancion.mp4"); // Ensure path is correct for both dev and production
+    // Use window.location.origin to ensure correct path resolution
+    const audioPath = "./cancion.mp4";
+    const audio = new Audio(audioPath);
     audio.volume = 0.4;
     audio.loop = true;
     audioRef.current = audio;
