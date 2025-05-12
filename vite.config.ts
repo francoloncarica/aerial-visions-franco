@@ -20,7 +20,7 @@ export default defineConfig(({ mode }) => ({
     },
   },
   build: {
-    outDir: "docs", // Ensure the build output is in the "docs" folder
-    assetsDir: "assets", // Place static files in "assets"
+    outDir: "docs", // Build output to docs folder for GitHub Pages
+    assetsDir: "assets", // Assets directory within the output folder
   },
 }));

@@ -1,3 +1,4 @@
+
 import { useState, useEffect } from "react";
 import Logo from "./Logo";
 
@@ -14,7 +15,7 @@ export default function Hero() {
   }, []);
 
   const handleVideoError = () => {
-    console.log("Video failed to load");
+    console.error("Video failed to load");
     setVideoError(true);
   };
 
@@ -22,17 +23,21 @@ export default function Hero() {
     <section className="relative h-screen flex items-center justify-center overflow-hidden">
       {/* Background video with overlay */}
       <div className="absolute inset-0 z-0">
-        <video
-          autoPlay
-          loop
-          muted
-          playsInline
-          onError={handleVideoError}
-          className="absolute inset-0 w-full h-full object-cover"
-        >
-          <source src="./images/videos/video-3.mp4" type="video/mp4" />
-          Tu navegador no soporta videos.
-        </video>
+        {!videoError ? (
+          <video
+            autoPlay
+            loop
+            muted
+            playsInline
+            onError={handleVideoError}
+            className="absolute inset-0 w-full h-full object-cover"
+          >
+            <source src="./images/videos/video-3.mp4" type="video/mp4" />
+            Tu navegador no soporta videos.
+          </video>
+        ) : (
+          <div className="absolute inset-0 bg-black"></div>
+        )}
         <div className="absolute inset-0 bg-black/70"></div>
       </div>
 
